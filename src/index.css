@@ -1,0 +1,66 @@
+.app {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100%;
+  background-color: #282c34;
+  background-size: 100% 100%;
+}
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-height: 80vh;
+  border: 1px solid gray;
+  padding: 10px;
+  font-size: 20px;
+  color: white;
+}
+.todoForm {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+}
+input {
+  width: 80%;
+  padding: 10px;
+  border-radius: 20px;
+  border: none;
+}
+button {
+  margin: 0 2px;
+  padding: 5px;
+  border-radius: 20px;
+  border: none;
+  font-weight: bold;
+}
+.allTodos {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.singleTodo {
+  border-radius: 50px;
+  margin: 10px 0;
+  background-color: #5dadf8;
+  padding: 10px 20px;
+  display: flex;
+  width: 90%;
+  align-items: center;
+}
+.singleTodo-complete {
+  border-radius: 50px;
+  margin: 10px 0;
+  background-color: red;
+  padding: 10px 20px;
+  display: flex;
+  width: 90%;
+  align-items: center;
+}
+.itemText {
+  flex: 1;
+  word-wrap: break-word;
+  color: white;
+  font-weight: bold;
+}
