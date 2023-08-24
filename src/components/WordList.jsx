@@ -3,10 +3,10 @@ import WordRow from './WordRow';
 
 function WordList({ rows, markComplete }) {
   return rows
-    .map(row => {
+    .map((row, index) => {
       return (
         <WordRow
-          key={row.id}
+          key={index}
           row={row}
           markComplete={markComplete}
         />

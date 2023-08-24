@@ -3,21 +3,39 @@ import WordList from './WordList';
 import { v4 as uuidv4 } from 'uuid';
 
 function App() {
-  const [rows, setRows] = useState([]);
+  const [rows, setRows] = useState([['B','L','I','N','D'],['B','E','L','O','W']]);
+  const [scores, setScores] = useState([]);
   const [rowName, setRowName] = useState('');
   const [editId, setEditId] = useState(0);
-  const [viewAll, setViewAll] = useState(false);
   const rowNameRef = useRef();
-  const LOCAL_STORAGE_KEY = 'game14-rows';
+  const LOCAL_STORAGE_KEY1 = 'game14-rows';
+  const LOCAL_STORAGE_KEY2 = 'game14-scores';
 
   useEffect(() => {
-    const savedItems = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY));
+    const savedItems = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY1));
     if (savedItems) setRows(savedItems);
   }, []);
 
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(rows));
+    const savedScores = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY2));
+    if (savedScores) setScores(savedScores);
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY1, JSON.stringify(rows));
   }, [rows]);
+
+  useEffect(() => {
+    localStorage.setItem(LOCAL_STORAGE_KEY2, JSON.stringify(scores));
+  }, [scores]);
+
+  function resetButton() {
+    //initializeGame(workGame);
+  }
+
+  function saveButton() {
+    
+  }
 
   function markComplete(id) {
     const date = new Date();
@@ -62,7 +80,9 @@ function App() {
   return (
     <div className="app">
       <div className="container">
-        <h1>5 Letter Words Maze</h1>
+        <button onClick={() => resetButton()}>Reset</button>
+        <h1>5 Letter Word Maze</h1>
+        <button onClick={() => saveButton()}>Save</button>
         <form className="todoForm" onSubmit={addRow}>
           <input ref={rowNameRef} type="text" value={rowName} onChange={e => setRowName(e.target.value)} />
           <button type="submit">{editId ? 'edit' : '+'}</button>
