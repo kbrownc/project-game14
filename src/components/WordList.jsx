@@ -1,14 +1,15 @@
 import React from 'react';
 import WordRow from './WordRow';
 
-function WordList({ rows, markComplete }) {
+function WordList({ rows, markDone }) {
   return rows
     .map((row, index) => {
       return (
         <WordRow
           key={index}
           row={row}
-          markComplete={markComplete}
+          markDone={markDone}
+          index={index}
         />
       );
     });

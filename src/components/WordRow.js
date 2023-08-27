@@ -1,11 +1,13 @@
 import React from 'react';
 
-function WordRow({ row, markComplete }) {
+function WordRow({ row, markDone, index }) {
   return (
     <div className="addbutton">
-      <li className={row.complete ? 'singleRow-complete' : 'singleRow'}>
-        <span className="itemText">{row[0]} {row[1]} {row[2]} {row[3]} {row[4]}</span>
-        <button onClick={() => markComplete(row.id)}>Done</button>
+      <li className={row.done ? 'singleRow-complete' : 'singleRow'}>
+        <span className="itemText">
+          {row.name[0]} {row.name[1]} {row.name[2]} {row.name[3]} {row.name[4]}
+        </span>
+        <button onClick={() => markDone(index)}>{!row.done ? 'Done' : 'Frozen'}</button>
       </li>
     </div>
   );

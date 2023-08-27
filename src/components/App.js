@@ -1,10 +1,16 @@
 import React, { useState, useRef, useEffect } from 'react';
 import WordList from './WordList';
 import { v4 as uuidv4 } from 'uuid';
+import { letterPoints } from '../letters/LetterPoints';
 
 function App() {
-  const [rows, setRows] = useState([['B','L','I','N','D'],['B','E','L','O','W']]);
-  const [scores, setScores] = useState([]);
+  const [rows, setRows] = useState([
+    { done: true, name: ['B', 'L', 'I', 'N', 'D'] },
+    { done: false, name: ['B', 'E', 'L', 'O', 'W'] },
+  ]);
+  const [scores, setScores] = useState([1, 2, 3, 4, 5]);
+  const [score, setScore] = useState(0);
+  let message = 'Test message ';
   const [rowName, setRowName] = useState('');
   const [editId, setEditId] = useState(0);
   const rowNameRef = useRef();
@@ -33,22 +39,40 @@ function App() {
     //initializeGame(workGame);
   }
 
-  function saveButton() {
-    
+  function calculateScore() {
+    // calculate score from 'rows'
+    let score = 0;
+    let j = 0;
+    let i;
+    while (j < rows.length && rows[j].done) {
+      i = 0;
+      while (i < 5) {
+        // Calculate total value of word
+        score =
+          score +
+          letterPoints.find(item => {
+            return item.letter === rows[j].name[i];
+          }).point;
+        i++;
+      }
+      j++;
+    }
+    return score;
   }
 
-  function markComplete(id) {
-    const date = new Date();
-    const updatedRows = rows.map(t =>
-      t.id === id
-        ? {
-            id: t.id,
-            name: t.name,
-            complete: !t.complete,
-            created: t.created,
-            dateCompleted: date.toDateString(),
-          }
-        : { id: t.id, name: t.name, complete: t.complete, created: t.created, dateCompleted: t.dateCompleted }
+  // Sort highScores and take top 5 scores
+  function saveButton() {
+    let workScores = JSON.parse(JSON.stringify(scores));
+    setScore(calculateScore());
+    workScores.push(calculateScore());
+    workScores.sort((a, b) => b - a);
+    workScores.splice(5);
+    setScores(workScores);
+  }
+
+  function markDone(id) {
+    const updatedRows = rows.map((item, index) =>
+      index === id && !item.done ? { done: true, name: item.name } : { done: item.done, name: item.name }
     );
     setRows(updatedRows);
   }
@@ -77,23 +101,28 @@ function App() {
     setRowName('');
   }
 
+  if (scores === undefined) return;
   return (
     <div className="app">
       <div className="container">
         <button onClick={() => resetButton()}>Reset</button>
         <h1>5 Letter Word Maze</h1>
+        <div>
+          <span>{message}</span>
+          <span>Score: {score}</span>
+        </div>
         <button onClick={() => saveButton()}>Save</button>
+
         <form className="todoForm" onSubmit={addRow}>
           <input ref={rowNameRef} type="text" value={rowName} onChange={e => setRowName(e.target.value)} />
           <button type="submit">{editId ? 'edit' : '+'}</button>
         </form>
-        <div>{rows.filter(row => !row.complete).length} left to do</div>
         <ul className="allRows">
-          <WordList
-            rows={rows}
-            markComplete={markComplete}
-          />
+          <WordList rows={rows} markDone={markDone} />
         </ul>
+        <div>
+          Top Scores: {scores[0]} {scores[1]} {scores[2]} {scores[3]} {scores[4]}
+        </div>
       </div>
     </div>
   );
