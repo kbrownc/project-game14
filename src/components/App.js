@@ -8,14 +8,14 @@ function App() {
     { done: true, name: ['B', 'L', 'I', 'N', 'D'] },
     { done: false, name: ['B', 'E', 'L', 'O', 'W'] },
   ]);
-  const [scores, setScores] = useState([1, 2, 3, 4, 5]);
+  const [topScores, setTopScores] = useState([1, 2, 3, 4, 5]);
   const [score, setScore] = useState(0);
   let message = 'Test message ';
   const [rowName, setRowName] = useState('');
   const [editId, setEditId] = useState(0);
   const rowNameRef = useRef();
   const LOCAL_STORAGE_KEY1 = 'game14-rows';
-  const LOCAL_STORAGE_KEY2 = 'game14-scores';
+  const LOCAL_STORAGE_KEY2 = 'game14-topScores';
 
   useEffect(() => {
     const savedItems = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY1));
@@ -23,8 +23,8 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const savedScores = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY2));
-    if (savedScores) setScores(savedScores);
+    const savedTopScores = JSON.parse(localStorage.getItem(LOCAL_STORAGE_KEY2));
+    if (savedTopScores) setTopScores(savedTopScores);
   }, []);
 
   useEffect(() => {
@@ -32,8 +32,8 @@ function App() {
   }, [rows]);
 
   useEffect(() => {
-    localStorage.setItem(LOCAL_STORAGE_KEY2, JSON.stringify(scores));
-  }, [scores]);
+    localStorage.setItem(LOCAL_STORAGE_KEY2, JSON.stringify(topScores));
+  }, [topScores]);
 
   function resetButton() {
     //initializeGame(workGame);
@@ -60,14 +60,14 @@ function App() {
     return score;
   }
 
-  // Sort highScores and take top 5 scores
+  // Sort topScores and take top 5 scores
   function saveButton() {
-    let workScores = JSON.parse(JSON.stringify(scores));
+    let workTopScores = JSON.parse(JSON.stringify(topScores));
     setScore(calculateScore());
-    workScores.push(calculateScore());
-    workScores.sort((a, b) => b - a);
-    workScores.splice(5);
-    setScores(workScores);
+    workTopScores.push(calculateScore());
+    workTopScores.sort((a, b) => b - a);
+    workTopScores.splice(5);
+    setTopScores(workTopScores);
   }
 
   function markDone(id) {
@@ -101,27 +101,28 @@ function App() {
     setRowName('');
   }
 
-  if (scores === undefined) return;
+  if (topScores === undefined) return;
   return (
     <div className="app">
       <div className="container">
         <button onClick={() => resetButton()}>Reset</button>
         <h1>5 Letter Word Maze</h1>
+        <button onClick={() => saveButton()}>Save</button>
         <div>
           <span>{message}</span>
           <span>Score: {score}</span>
         </div>
-        <button onClick={() => saveButton()}>Save</button>
 
         <form className="todoForm" onSubmit={addRow}>
           <input ref={rowNameRef} type="text" value={rowName} onChange={e => setRowName(e.target.value)} />
           <button type="submit">{editId ? 'edit' : '+'}</button>
         </form>
+
         <ul className="allRows">
           <WordList rows={rows} markDone={markDone} />
         </ul>
         <div>
-          Top Scores: {scores[0]} {scores[1]} {scores[2]} {scores[3]} {scores[4]}
+          Top Scores: {topScores[0]} {topScores[1]} {topScores[2]} {topScores[3]} {topScores[4]}
         </div>
       </div>
     </div>
