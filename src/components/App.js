@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import WordList from './WordList';
+import Navbar from './Navbar';
 import { v4 as uuidv4 } from 'uuid';
 import { letterPoints } from '../letters/LetterPoints';
 
@@ -105,25 +106,14 @@ function App() {
   return (
     <div className="app">
       <div className="container">
-        <button onClick={() => resetButton()}>Reset</button>
-        <h1>5 Letter Word Maze</h1>
-        <button onClick={() => saveButton()}>Save</button>
-        <div>
-          <span>{message}</span>
-          <span>Score: {score}</span>
-        </div>
+        <Navbar resetButton={resetButton} saveButton={saveButton} message={message} score={score} />
 
         <form className="todoForm" onSubmit={addRow}>
           <input ref={rowNameRef} type="text" value={rowName} onChange={e => setRowName(e.target.value)} />
           <button type="submit">{editId ? 'edit' : '+'}</button>
         </form>
 
-        <ul className="allRows">
-          <WordList rows={rows} markDone={markDone} />
-        </ul>
-        <div>
-          Top Scores: {topScores[0]} {topScores[1]} {topScores[2]} {topScores[3]} {topScores[4]}
-        </div>
+        <WordList rows={rows} markDone={markDone} topScores={topScores} />
       </div>
     </div>
   );
