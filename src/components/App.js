@@ -1,7 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import WordList from './WordList';
 import Navbar from './Navbar';
-import { v4 as uuidv4 } from 'uuid';
 import { letterPoints } from '../letters/LetterPoints';
 
 function App() {
@@ -12,9 +11,6 @@ function App() {
   const [topScores, setTopScores] = useState([1, 2, 3, 4, 5]);
   const [score, setScore] = useState(0);
   let message = 'Test message ';
-  const [rowName, setRowName] = useState('');
-  const [editId, setEditId] = useState(0);
-  const rowNameRef = useRef();
   const LOCAL_STORAGE_KEY1 = 'game14-rows';
   const LOCAL_STORAGE_KEY2 = 'game14-topScores';
 
@@ -71,6 +67,7 @@ function App() {
     setTopScores(workTopScores);
   }
 
+  // Mark word as complete and lock from updates
   function markDone(id) {
     const updatedRows = rows.map((item, index) =>
       index === id && !item.done ? { done: true, name: item.name } : { done: item.done, name: item.name }
@@ -78,42 +75,13 @@ function App() {
     setRows(updatedRows);
   }
 
-  function addRow(e) {
-    e.preventDefault();
-    if (editId) {
-      const editRow = rows.find(row => row.id === editId);
-      const updatedRows = rows.map(t =>
-        t.id === editRow.id
-          ? { id: editRow.id, name: rowName, complete: editRow.complete, created: editRow.created }
-          : { id: t.id, name: t.name, complete: t.complete, created: t.created }
-      );
-      setRows(updatedRows);
-      setEditId(0);
-      setRowName('');
-      return;
-    }
-    const date = new Date();
-    const name = rowNameRef.current.value;
-    if (name === '') return;
-    setRows(prev => {
-      return [...prev, { id: uuidv4(), name: name, complete: false, created: date.toDateString() }];
-    });
-    rowNameRef.current.value = null;
-    setRowName('');
-  }
-
-  if (topScores === undefined) return;
+  //if (topScores === undefined) return;
   return (
     <div className="app">
       <div className="container">
         <Navbar resetButton={resetButton} saveButton={saveButton} message={message} score={score} />
-
-        <form className="todoForm" onSubmit={addRow}>
-          <input ref={rowNameRef} type="text" value={rowName} onChange={e => setRowName(e.target.value)} />
-          <button type="submit">{editId ? 'edit' : '+'}</button>
-        </form>
-
-        <WordList rows={rows} markDone={markDone} topScores={topScores} />
+        <WordList rows={rows} setRows={setRows} markDone={markDone} />
+        <div>Top Scores: {topScores[0]} {topScores[1]} {topScores[2]} {topScores[3]} {topScores[4]}</div>
       </div>
     </div>
   );
