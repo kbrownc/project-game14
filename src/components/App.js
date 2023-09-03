@@ -4,11 +4,13 @@ import Navbar from './Navbar';
 import { letterPoints } from '../letters/LetterPoints';
 
 function App() {
-  const [rows, setRows] = useState([
-    { done: true, name: ['B', 'L', 'I', 'N', 'D'] },
-    { done: false, name: ['B', 'E', 'L', 'O', 'W'] },
-  ]);
-  const [topScores, setTopScores] = useState([1, 2, 3, 4, 5]);
+  // const [rows, setRows] = useState([
+  //   { done: true, name: ['B', 'L', 'I', 'N', 'D'] },
+  //   { done: false, name: ['B', 'E', 'L', 'O', 'W'] },
+  // ]);
+  // const [topScores, setTopScores] = useState([1, 2, 3, 4, 5]);
+  const [rows, setRows] = useState([{ done: false, name: ['', '', '', '', ''] }]);
+  const [topScores, setTopScores] = useState([]);
   const [score, setScore] = useState(0);
   let message = 'Test message ';
   const LOCAL_STORAGE_KEY1 = 'game14-rows';
@@ -33,14 +35,20 @@ function App() {
   }, [topScores]);
 
   function resetButton() {
-    //initializeGame(workGame);
+    localStorage.removeItem(LOCAL_STORAGE_KEY1);
+    let workRows = JSON.parse(JSON.stringify(rows));
+    if (workRows.length === 0) {
+      workRows = [{ done: false, name: ['', '', '', '', ''] }];
+    }
+    workRows[0].name[Math.floor(Math.random() * 5)] = letterPoints[Math.floor(Math.random() * 26)].letter;
+    setRows(workRows);
   }
 
   function calculateScore() {
     // calculate score from 'rows'
     let score = 0;
     let j = 0;
-    let i;
+    let i = 0;
     while (j < rows.length && rows[j].done) {
       i = 0;
       while (i < 5) {
@@ -75,13 +83,14 @@ function App() {
     setRows(updatedRows);
   }
 
-  //if (topScores === undefined) return;
   return (
     <div className="app">
       <div className="container">
         <Navbar resetButton={resetButton} saveButton={saveButton} message={message} score={score} />
         <WordList rows={rows} setRows={setRows} markDone={markDone} />
-        <div>Top Scores: {topScores[0]} {topScores[1]} {topScores[2]} {topScores[3]} {topScores[4]}</div>
+        <div>
+          Top Scores: {topScores[0]} {topScores[1]} {topScores[2]} {topScores[3]} {topScores[4]}
+        </div>
       </div>
     </div>
   );

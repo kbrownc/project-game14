@@ -17,10 +17,10 @@
   font-size: 20px;
   color: white;
 }
-.todoForm {
+.rowForm {
   display: flex;
   justify-content: space-around;
-  width: 80%;
+  width: 25%;
 }
 input {
   width: 80%;
@@ -35,12 +35,12 @@ button {
   border: none;
   font-weight: bold;
 }
-.allTodos {
+.allRows {
   list-style-type: none;
   margin: 0;
   padding: 0;
 }
-.singleTodo {
+.singleRow {
   border-radius: 50px;
   margin: 10px 0;
   background-color: #5dadf8;
@@ -48,8 +48,9 @@ button {
   display: flex;
   width: 90%;
   align-items: center;
+  list-style: none;
 }
-.singleTodo-complete {
+.singleRow-complete {
   border-radius: 50px;
   margin: 10px 0;
   background-color: red;
@@ -57,6 +58,7 @@ button {
   display: flex;
   width: 90%;
   align-items: center;
+  list-style: none;
 }
 .itemText {
   flex: 1;

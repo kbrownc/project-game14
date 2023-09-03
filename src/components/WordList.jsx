@@ -1,75 +1,45 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import WordRow from './WordRow';
-import { v4 as uuidv4 } from 'uuid';
 
 function WordList({ rows, setRows, markDone }) {
-  const [newLetter, setNewLetter] = useState('');
-  const [editId, setEditId] = useState(0);
-  const newLetterRef = useRef();
+  const [newLetter0, setNewLetter0] = useState('');
+  const [newLetter1, setNewLetter1] = useState('');
+  const [newLetter2, setNewLetter2] = useState('');
+  const [newLetter3, setNewLetter3] = useState('');
+  const [newLetter4, setNewLetter4] = useState('');
 
   function addRow(e) {
-    e.preventDefault();
-    if (editId) {
-      const editRow = rows.find(row => row.id === editId);
-      const updatedRows = rows.map(t =>
-        t.id === editRow.id
-          ? { id: editRow.id, name: newLetter, complete: editRow.complete, created: editRow.created }
-          : { id: t.id, name: t.name, complete: t.complete, created: t.created }
-      );
-      setRows(updatedRows);
-      setEditId(0);
-      setNewLetter('');
-      return;
-    }
-    const date = new Date();
-    const name = newLetterRef.current.value;
-    if (name === '') return;
-    setRows(prev => {
-      return [...prev, { id: uuidv4(), name: name, complete: false, created: date.toDateString() }];
-    });
-    newLetterRef.current.value = null;
-    setNewLetter('');
+    let workRows = JSON.parse(JSON.stringify(rows));
+    workRows[rows.length] = {
+      done: false,
+      name: [newLetter0, newLetter1, newLetter2, newLetter3, newLetter4],
+    };
+    setRows(workRows);
   }
 
   function deleteWord(e) {
-    e.preventDefault();
-    if (editId) {
-      const editRow = rows.find(row => row.id === editId);
-      const updatedRows = rows.map(t =>
-        t.id === editRow.id
-          ? { id: editRow.id, name: newLetter, complete: editRow.complete, created: editRow.created }
-          : { id: t.id, name: t.name, complete: t.complete, created: t.created }
-      );
-      setRows(updatedRows);
-      setEditId(0);
-      setNewLetter('');
-      return;
+    let workRows = JSON.parse(JSON.stringify(rows));
+    workRows.pop();
+    if (workRows.length === 0) {
+      workRows = [{ done: false, name: ['', '', '', '', ''] }];
     }
-    const date = new Date();
-    const name = newLetterRef.current.value;
-    if (name === '') return;
-    setRows(prev => {
-      return [...prev, { id: uuidv4(), name: name, complete: false, created: date.toDateString() }];
-    });
-    newLetterRef.current.value = null;
-    setNewLetter('');
+    setRows(workRows);
   }
 
   return rows.map((row, index, setRows) => {
     return (
       <div key={index}>
         <ul className="allRows">
-          <WordRow row={row} markDone={markDone} deleteWord={deleteWord} />
+          <WordRow index={index} row={row} markDone={markDone} deleteWord={deleteWord} />
         </ul>
-        {index === rows.length - 1 ? (
-          <form className="todoForm" onSubmit={addRow}>
-            <input
-              ref={newLetterRef}
-              type="text"
-              value={newLetter}
-              onChange={e => setNewLetter(e.target.value)}
-            />
-            <button type="submit">{editId ? 'edit' : 'Add'}</button>
+        {index === rows.length - 1 || rows.length === 0 ? (
+          <form className="rowForm" onSubmit={addRow}>
+            <input required type="text" value={newLetter0} onChange={e => setNewLetter0(e.target.value)} />
+            <input required type="text" value={newLetter1} onChange={e => setNewLetter1(e.target.value)} />
+            <input required type="text" value={newLetter2} onChange={e => setNewLetter2(e.target.value)} />
+            <input required type="text" value={newLetter3} onChange={e => setNewLetter3(e.target.value)} />
+            <input required type="text" value={newLetter4} onChange={e => setNewLetter4(e.target.value)} />
+            <button type="submit">Add</button>
           </form>
         ) : null}
       </div>
