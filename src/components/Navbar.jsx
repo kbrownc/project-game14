@@ -3,12 +3,12 @@ import React from 'react';
 function Navbar({ resetButton, saveButton, message, score }) {
   return (
     <div>
-      <div>
+      <div className="navbar">
         <button onClick={() => resetButton()}>Reset</button>
         <span>5 Letter Word Maze</span>
         <button onClick={() => saveButton()}>Save</button>
       </div>
-      <div>
+      <div className="navbar">
         <span>{message}</span>
         <span>Score: {score}</span>
       </div>

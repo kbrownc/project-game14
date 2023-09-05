@@ -1,6 +1,6 @@
 .app {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   min-height: 100vh;
   width: 100%;
@@ -10,8 +10,9 @@
 .container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  /*align-items: center; */
   min-height: 80vh;
+  min-width: 100vh;
   border: 1px solid gray;
   padding: 10px;
   font-size: 20px;
@@ -46,7 +47,7 @@ button {
   background-color: #5dadf8;
   padding: 10px 20px;
   display: flex;
-  width: 90%;
+  width: 20%;
   align-items: center;
   list-style: none;
 }
@@ -56,13 +57,17 @@ button {
   background-color: red;
   padding: 10px 20px;
   display: flex;
-  width: 90%;
+  width: 20%;
   align-items: center;
   list-style: none;
 }
 .itemText {
-  flex: 1;
-  word-wrap: break-word;
-  color: white;
+  display: inline-flex;
+  color: black;
+  background-color: pink;
   font-weight: bold;
+}
+.navbar {
+  display: flex;
+  justify-content: space-between;
 }

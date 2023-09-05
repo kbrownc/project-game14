@@ -44,20 +44,18 @@ function App() {
     setRows(workRows);
   }
 
+  // Calculate total value of word
   function calculateScore() {
-    // calculate score from 'rows'
     let score = 0;
     let j = 0;
     let i = 0;
     while (j < rows.length && rows[j].done) {
       i = 0;
       while (i < 5) {
-        // Calculate total value of word
         score =
           score +
           letterPoints.find(item => {
-            return item.letter === rows[j].name[i];
-          }).point;
+            return item.letter === rows[j].name[i]}).point;
         i++;
       }
       j++;

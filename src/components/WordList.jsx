@@ -14,6 +14,11 @@ function WordList({ rows, setRows, markDone }) {
       done: false,
       name: [newLetter0, newLetter1, newLetter2, newLetter3, newLetter4],
     };
+    setNewLetter0('')
+    setNewLetter1('')
+    setNewLetter2('')
+    setNewLetter3('')
+    setNewLetter4('')
     setRows(workRows);
   }
 
@@ -30,7 +35,8 @@ function WordList({ rows, setRows, markDone }) {
     return (
       <div key={index}>
         <ul className="allRows">
-          <WordRow index={index} row={row} markDone={markDone} deleteWord={deleteWord} />
+          <WordRow index={index} row={row} markDone={markDone} deleteWord={deleteWord} 
+          rowLength = {rows.length} />
         </ul>
         {index === rows.length - 1 || rows.length === 0 ? (
           <form className="rowForm" onSubmit={addRow}>
