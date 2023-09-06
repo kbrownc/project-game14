@@ -47,18 +47,14 @@ function App() {
   // Calculate total value of word
   function calculateScore() {
     let score = 0;
-    let j = 0;
-    let i = 0;
-    while (j < rows.length && rows[j].done) {
-      i = 0;
-      while (i < 5) {
+    for (let j=0; j < rows.length && rows[j].done; j++) {
+      
+      for (let i=0; i < 5; i++) {
         score =
           score +
           letterPoints.find(item => {
             return item.letter === rows[j].name[i]}).point;
-        i++;
       }
-      j++;
     }
     return score;
   }
