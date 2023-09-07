@@ -1,4 +1,4 @@
-  let wordDictionary = [
+  const wordDictionary = [
     "aback",
     "abase",
     "abate",
@@ -3319,3 +3319,5 @@
     "zoeae",
     "zoeal",
   ];
+
+  export { wordDictionary };

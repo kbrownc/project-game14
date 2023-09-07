@@ -10,7 +10,7 @@ function WordList({ rows, setRows, markDone }) {
 
   function addRow(e) {
     let workRows = JSON.parse(JSON.stringify(rows));
-    workRows[rows.length] = {
+    workRows[workRows.length] = {
       done: false,
       name: [newLetter0, newLetter1, newLetter2, newLetter3, newLetter4],
     };

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import WordList from './WordList';
 import Navbar from './Navbar';
 import { letterPoints } from '../letters/LetterPoints';
+import { wordDictionary } from '../letters/WordDictionary';
 
 function App() {
   // const [rows, setRows] = useState([
@@ -12,7 +13,7 @@ function App() {
   const [rows, setRows] = useState([{ done: false, name: ['', '', '', '', ''] }]);
   const [topScores, setTopScores] = useState([]);
   const [score, setScore] = useState(0);
-  let message = 'Test message ';
+  const [message, setMessage] = useState('');
   const LOCAL_STORAGE_KEY1 = 'game14-rows';
   const LOCAL_STORAGE_KEY2 = 'game14-topScores';
 
@@ -42,13 +43,13 @@ function App() {
     }
     workRows[0].name[Math.floor(Math.random() * 5)] = letterPoints[Math.floor(Math.random() * 26)].letter;
     setRows(workRows);
+    setMessage('')
   }
 
   // Calculate total value of word
   function calculateScore() {
     let score = 0;
     for (let j=0; j < rows.length && rows[j].done; j++) {
-      
       for (let i=0; i < 5; i++) {
         score =
           score +
@@ -71,10 +72,28 @@ function App() {
 
   // Mark word as complete and lock from updates
   function markDone(id) {
-    const updatedRows = rows.map((item, index) =>
-      index === id && !item.done ? { done: true, name: item.name } : { done: item.done, name: item.name }
-    );
-    setRows(updatedRows);
+    let workRows = JSON.parse(JSON.stringify(rows));
+    let workMessage = ''
+    for (let i=0; i < workRows.length; i++) {
+      if (i === id) {
+        if (!workRows[i].done) {
+          if (errorCheck()) {
+            workRows[i].done = true;
+          }
+        } else {
+          workMessage = 'word already marked as frozen'
+        }
+      }
+    }
+    setMessage(workMessage)
+    setRows(workRows)
+  }
+
+  // Mark word as complete and lock from updates
+  function errorCheck() {
+    // Lookup word in dictionary
+    console.log(wordDictionary[45])
+    return true;
   }
 
   return (
