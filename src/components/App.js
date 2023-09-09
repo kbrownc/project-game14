@@ -2,7 +2,12 @@ import React, { useState, useEffect } from 'react';
 import WordList from './WordList';
 import Navbar from './Navbar';
 import { letterPoints } from '../letters/LetterPoints';
-import { wordDictionary } from '../letters/WordDictionary';
+
+window.onerror = function(msg, url, line, col, error) {
+   var extra = !col ? '' : '\ncolumn: ' + col;
+   extra += !error ? '' : '\nerror: ' + error;
+   console.log("Error: " + msg + "\nurl: " + url + "\nline: " + line + extra);
+};
 
 function App() {
   // const [rows, setRows] = useState([
@@ -10,7 +15,7 @@ function App() {
   //   { done: false, name: ['B', 'E', 'L', 'O', 'W'] },
   // ]);
   // const [topScores, setTopScores] = useState([1, 2, 3, 4, 5]);
-  const [rows, setRows] = useState([{ done: false, name: ['', '', '', '', ''] }]);
+  const [rows, setRows] = useState([{ done: false, name: ['b', 'l', 'e', 'n', 'd'] }]);
   const [topScores, setTopScores] = useState([]);
   const [score, setScore] = useState(0);
   const [message, setMessage] = useState('');
@@ -43,18 +48,19 @@ function App() {
     }
     workRows[0].name[Math.floor(Math.random() * 5)] = letterPoints[Math.floor(Math.random() * 26)].letter;
     setRows(workRows);
-    setMessage('')
+    setMessage('');
   }
 
   // Calculate total value of word
   function calculateScore() {
     let score = 0;
-    for (let j=0; j < rows.length && rows[j].done; j++) {
-      for (let i=0; i < 5; i++) {
+    for (let j = 0; j < rows.length && rows[j].done; j++) {
+      for (let i = 0; i < 5; i++) {
         score =
           score +
           letterPoints.find(item => {
-            return item.letter === rows[j].name[i]}).point;
+            return item.letter === rows[j].name[i];
+          }).point;
       }
     }
     return score;
@@ -73,34 +79,25 @@ function App() {
   // Mark word as complete and lock from updates
   function markDone(id) {
     let workRows = JSON.parse(JSON.stringify(rows));
-    let workMessage = ''
-    for (let i=0; i < workRows.length; i++) {
+    let workMessage = '';
+    for (let i = 0; i < workRows.length; i++) {
       if (i === id) {
         if (!workRows[i].done) {
-          if (errorCheck()) {
-            workRows[i].done = true;
-          }
+          workRows[i].done = true;
         } else {
-          workMessage = 'word already marked as frozen'
+          workMessage = 'word already marked as frozen';
         }
       }
     }
-    setMessage(workMessage)
-    setRows(workRows)
-  }
-
-  // Mark word as complete and lock from updates
-  function errorCheck() {
-    // Lookup word in dictionary
-    console.log(wordDictionary[45])
-    return true;
+    setMessage(workMessage);
+    setRows(workRows);
   }
 
   return (
     <div className="app">
       <div className="container">
         <Navbar resetButton={resetButton} saveButton={saveButton} message={message} score={score} />
-        <WordList rows={rows} setRows={setRows} markDone={markDone} />
+        <WordList rows={rows} setRows={setRows} markDone={markDone} setMessage={setMessage} />
         <div>
           Top Scores: {topScores[0]} {topScores[1]} {topScores[2]} {topScores[3]} {topScores[4]}
         </div>
