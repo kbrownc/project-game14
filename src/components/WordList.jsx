@@ -10,31 +10,34 @@ function WordList({ rows, setRows, markDone, setMessage }) {
   const [newLetter4, setNewLetter4] = useState('');
 
   function addRow(e) {
-    debugger;
-    //let workRows = JSON.parse(JSON.stringify(rows));
-    let workMessage = 'sss';
-
+    let workRows = JSON.parse(JSON.stringify(rows));
+    let workMessage = '';
+    // error 1 check - is word a real word. Set error messsage or create word
+    if (!error1Check(newLetter0 + newLetter1 + newLetter2 + newLetter3 + newLetter4)) {
+      workMessage = 'not a valid word';
+    } else {
+      workRows[workRows.length] = {
+        done: false,
+        name: [newLetter0, newLetter1, newLetter2, newLetter3, newLetter4],
+      };
+    }
+    // error 2 check - has word already been played (duplicate)
+    if (workMessage === '') {
+      if (error2Check(workRows)) {
+        workMessage = 'duplicate word';
+      }
+    }
+    // if word is valid, add it to board and space it out in the input fields
+    if (workMessage === '') {
+      setRows(workRows);
+      setNewLetter0('');
+      setNewLetter1('');
+      setNewLetter2('');
+      setNewLetter3('');
+      setNewLetter4('');
+    }
+    // send error or blank message
     setMessage(workMessage);
-    // if (!error1Check(newLetter0 + newLetter1 + newLetter2 + newLetter3 + newLetter4)) {
-    //   workMessage = 'not a valid word';
-    // } else {
-    //   workRows[workRows.length] = {
-    //     done: false,
-    //     name: [newLetter0, newLetter1, newLetter2, newLetter3, newLetter4],
-    //   };
-    //   setRows(workRows);
-    //   setNewLetter0('');
-    //   setNewLetter1('');
-    //   setNewLetter2('');
-    //   setNewLetter3('');
-    //   setNewLetter4('');
-    // }
-    // if (workMessage === '') {
-    //   error2Check(workRows)
-    // }
-    // if (workMessage !== '') {
-    //   setMessage(workMessage);
-    // }
   }
 
   function deleteWord(e) {
@@ -61,7 +64,6 @@ function WordList({ rows, setRows, markDone, setMessage }) {
   function error2Check(workRows) {
     // Check for duplicate word
     let resultToReturn = false;
-    let workMessage = '';
     for (let i = 0; i < workRows.length; i++) {
       for (let j = 0; j < workRows.length; j++) {
         if (i !== j) {
@@ -75,11 +77,7 @@ function WordList({ rows, setRows, markDone, setMessage }) {
         break;
       }
     }
-    if (resultToReturn) {
-      workMessage = 'duplicate word';
-      setMessage(workMessage);
-      return;
-    }
+    return resultToReturn;
   }
 
   return rows.map((row, index, setRows) => {
@@ -95,14 +93,46 @@ function WordList({ rows, setRows, markDone, setMessage }) {
           />
         </ul>
         {index === rows.length - 1 || rows.length === 0 ? (
-          <form className="rowForm" onSubmit={addRow} name="word">
-            <input required name="letter1" type="text" value={newLetter0} onChange={e => setNewLetter0(e.target.value)} />
-            <input required name="letter2" type="text" value={newLetter1} onChange={e => setNewLetter1(e.target.value)} />
-            <input required name="letter3" type="text" value={newLetter2} onChange={e => setNewLetter2(e.target.value)} />
-            <input required name="letter4" type="text" value={newLetter3} onChange={e => setNewLetter3(e.target.value)} />
-            <input required name="letter5" type="text" value={newLetter4} onChange={e => setNewLetter4(e.target.value)} />
-            <button type="submit">Add</button>
-          </form>
+          <div className="rowForm">
+            <input
+              required
+              name="letter1"
+              type="text"
+              value={newLetter0}
+              onChange={e => setNewLetter0(e.target.value)}
+            />
+            <input
+              required
+              name="letter2"
+              type="text"
+              value={newLetter1}
+              onChange={e => setNewLetter1(e.target.value)}
+            />
+            <input
+              required
+              name="letter3"
+              type="text"
+              value={newLetter2}
+              onChange={e => setNewLetter2(e.target.value)}
+            />
+            <input
+              required
+              name="letter4"
+              type="text"
+              value={newLetter3}
+              onChange={e => setNewLetter3(e.target.value)}
+            />
+            <input
+              required
+              name="letter5"
+              type="text"
+              value={newLetter4}
+              onChange={e => setNewLetter4(e.target.value)}
+            />
+            <button type="submit" onClick={addRow}>
+              Add
+            </button>
+          </div>
         ) : null}
       </div>
     );
