@@ -3,18 +3,8 @@ import WordList from './WordList';
 import Navbar from './Navbar';
 import { letterPoints } from '../letters/LetterPoints';
 
-window.onerror = function(msg, url, line, col, error) {
-   var extra = !col ? '' : '\ncolumn: ' + col;
-   extra += !error ? '' : '\nerror: ' + error;
-   console.log("Error: " + msg + "\nurl: " + url + "\nline: " + line + extra);
-};
-
 function App() {
-  // const [rows, setRows] = useState([
-  //   { done: true, name: ['B', 'L', 'I', 'N', 'D'] },
-  //   { done: false, name: ['B', 'E', 'L', 'O', 'W'] },
-  // ]);
-  // const [topScores, setTopScores] = useState([1, 2, 3, 4, 5]);
+  //const [rows, setRows] = useState([]);
   const [rows, setRows] = useState([{ done: false, name: ['b', 'l', 'e', 'n', 'd'] }]);
   const [topScores, setTopScores] = useState([]);
   const [score, setScore] = useState(0);
@@ -59,7 +49,7 @@ function App() {
         score =
           score +
           letterPoints.find(item => {
-            return item.letter === rows[j].name[i];
+            return item.letter === rows[j].name[i].toUpperCase();
           }).point;
       }
     }

@@ -12,14 +12,9 @@ function WordList({ rows, setRows, markDone, setMessage }) {
   function addRow(e) {
     let workRows = JSON.parse(JSON.stringify(rows));
     let workMessage = '';
-    // error 1 check - is word a real word. Set error messsage or create word
+    // error 1 check - is word a real word
     if (!error1Check(newLetter0 + newLetter1 + newLetter2 + newLetter3 + newLetter4)) {
       workMessage = 'not a valid word';
-    } else {
-      workRows[workRows.length] = {
-        done: false,
-        name: [newLetter0, newLetter1, newLetter2, newLetter3, newLetter4],
-      };
     }
     // error 2 check - has word already been played (duplicate)
     if (workMessage === '') {
@@ -27,8 +22,18 @@ function WordList({ rows, setRows, markDone, setMessage }) {
         workMessage = 'duplicate word';
       }
     }
-    // if word is valid, add it to board and space it out in the input fields
+    // error 3 check - words must reuse 1 and only 1 letter from previous row in the same position
     if (workMessage === '') {
+      if (error3Check(workRows)) {
+        workMessage = 'word must reuse 1 and only 1 letter from previous word';
+      }
+    }
+    // if word is valid, add it to the list and space it out in the input fields
+    if (workMessage === '') {
+      workRows[workRows.length] = {
+        done: false,
+        name: [newLetter0, newLetter1, newLetter2, newLetter3, newLetter4],
+      };
       setRows(workRows);
       setNewLetter0('');
       setNewLetter1('');
@@ -52,7 +57,7 @@ function WordList({ rows, setRows, markDone, setMessage }) {
   function error1Check(name) {
     // Lookup word in dictionary
     const found = wordDictionary.find(item => {
-      return item === name;
+      return item === name.toLowerCase();
     });
     if (found === undefined) {
       return false;
@@ -68,6 +73,37 @@ function WordList({ rows, setRows, markDone, setMessage }) {
       for (let j = 0; j < workRows.length; j++) {
         if (i !== j) {
           if (workRows[i].name.join('') === workRows[j].name.join('')) {
+            resultToReturn = true;
+            break;
+          }
+        }
+      }
+      if (resultToReturn) {
+        break;
+      }
+    }
+    return resultToReturn;
+  }
+
+  function error3Check(workRows) {
+    // Check for reuse of letter from previous word
+    //  (create Temp list of words including current word)
+    let resultToReturn = false;
+    let count = 0;
+    let workRowsTemp = JSON.parse(JSON.stringify(rows));
+    workRowsTemp[workRowsTemp.length] = {
+      done: false,
+      name: [newLetter0, newLetter1, newLetter2, newLetter3, newLetter4],
+    };
+    if (workRowsTemp.length < 2) {
+      return resultToReturn;
+    }
+    for (let i = workRowsTemp.length - 2; i < workRowsTemp.length - 1; i++) {
+      for (let j = 0; j < 5; j++) {
+        if (workRowsTemp[i].name[j] === workRowsTemp[i + 1].name[j]) {
+          count = count + 1;
+          console.log(count, workRowsTemp[i].name[j], workRowsTemp[i + 1].name[j]);
+          if (count > 1) {
             resultToReturn = true;
             break;
           }

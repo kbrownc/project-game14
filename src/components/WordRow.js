@@ -5,7 +5,8 @@ function WordRow({ index, row, markDone, deleteWord, rowLength }) {
     <div>
       <li key={index} className={row.done ? 'singleRow-complete' : 'singleRow'}>
         <div className="itemText">
-          {row.name[0]} {row.name[1]} {row.name[2]} {row.name[3]} {row.name[4]}
+          {row.name[0].toUpperCase()} {row.name[1].toUpperCase()} {row.name[2].toUpperCase()}{' '}
+          {row.name[3].toUpperCase()} {row.name[4].toUpperCase()}
         </div>
         <button onClick={() => markDone(index)}>{!row.done ? 'Done' : 'Frozen'}</button>
         {rowLength - 1 === index ? <button onClick={() => deleteWord(index)}>Delete</button> : null}
