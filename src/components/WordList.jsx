@@ -100,9 +100,8 @@ function WordList({ rows, setRows, markDone, setMessage }) {
     }
     for (let i = workRowsTemp.length - 2; i < workRowsTemp.length - 1; i++) {
       for (let j = 0; j < 5; j++) {
-        if (workRowsTemp[i].name[j] === workRowsTemp[i + 1].name[j]) {
+        if (workRowsTemp[i].name[j].toUpperCase() === workRowsTemp[i + 1].name[j].toUpperCase()) {
           count = count + 1;
-          console.log(count, workRowsTemp[i].name[j], workRowsTemp[i + 1].name[j]);
           if (count > 1) {
             resultToReturn = true;
             break;
@@ -112,6 +111,9 @@ function WordList({ rows, setRows, markDone, setMessage }) {
       if (resultToReturn) {
         break;
       }
+    }
+    if (count === 0) {
+        resultToReturn = true;
     }
     return resultToReturn;
   }
