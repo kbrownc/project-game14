@@ -4,8 +4,8 @@ import Navbar from './Navbar';
 import { letterPoints } from '../letters/LetterPoints';
 
 function App() {
-  //const [rows, setRows] = useState([]);
-  const [rows, setRows] = useState([{ done: false, name: ['b', 'l', 'e', 'n', 'd'] }]);
+  const [rows, setRows] = useState([]);
+  //const [rows, setRows] = useState([{ done: false, name: ['b', 'l', 'e', 'n', 'd'] }]);
   const [topScores, setTopScores] = useState([]);
   const [score, setScore] = useState(0);
   const [message, setMessage] = useState('');

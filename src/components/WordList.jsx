@@ -113,24 +113,32 @@ function WordList({ rows, setRows, markDone, setMessage }) {
       }
     }
     if (count === 0) {
-        resultToReturn = true;
+      resultToReturn = true;
     }
     return resultToReturn;
   }
 
-  return rows.map((row, index, setRows) => {
-    return (
-      <div key={index}>
-        <ul className="allRows">
-          <WordRow
-            index={index}
-            row={row}
-            markDone={markDone}
-            deleteWord={deleteWord}
-            rowLength={rows.length}
-          />
-        </ul>
-        {index === rows.length - 1 || rows.length === 0 ? (
+  return (
+    <div>
+      <div>
+        {rows.map((row, index, setRows) => {
+          return (
+            <div key={index}>
+              <ul className="allRows">
+                <WordRow
+                  index={index}
+                  row={row}
+                  markDone={markDone}
+                  deleteWord={deleteWord}
+                  rowLength={rows.length}
+                />
+              </ul>
+            </div>
+          );
+        })}
+      </div>
+      <div>
+      {rows.length < 6 ? (
           <div className="rowForm">
             <input
               required
@@ -173,8 +181,8 @@ function WordList({ rows, setRows, markDone, setMessage }) {
           </div>
         ) : null}
       </div>
-    );
-  });
+    </div>
+  );
 }
 
 export default WordList;
