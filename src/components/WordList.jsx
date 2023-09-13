@@ -48,9 +48,9 @@ function WordList({ rows, setRows, markDone, setMessage }) {
   function deleteWord(e) {
     let workRows = JSON.parse(JSON.stringify(rows));
     workRows.pop();
-    if (workRows.length === 0) {
-      workRows = [{ done: false, name: ['', '', '', '', ''] }];
-    }
+    // if (workRows.length === 0) {
+    //   workRows = [{ done: false, name: ['', '', '', '', ''] }];
+    // }
     setRows(workRows);
   }
 
