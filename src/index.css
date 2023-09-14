@@ -42,20 +42,10 @@ button {
   margin: 0;
   padding: 0;
 }
-.singleRow {
+.row {
   border-radius: 50px;
   margin: 10px 0;
   background-color: #5dadf8;
-  padding: 10px 20px;
-  display: flex;
-  width: 25%;
-  align-items: center;
-  list-style: none;
-}
-.singleRow-complete {
-  border-radius: 50px;
-  margin: 10px 0;
-  background-color: red;
   padding: 10px 20px;
   display: flex;
   width: 25%;
@@ -68,13 +58,19 @@ button {
   background-color: pink;
   font-weight: bold;
   height: 20px;
-  width: 200px;
+  width: 300px;
+}
+.itemText2 {
+  display: flex;
+  color: black;
+  background-color: pink;
+  font-weight: bold;
+  height: 20px;
+  width: 40px;
+  padding: 20px;
+  margin: 1px;
 }
 .navbar {
   display: flex;
   justify-content: space-between;
-}
-.navbar {
-  display: flex;
-  
 }

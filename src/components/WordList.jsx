@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import WordRow from './WordRow';
 import { wordDictionary } from '../letters/WordDictionary';
+import { letterPoints } from '../letters/LetterPoints';
 
-function WordList({ rows, setRows, markDone, setMessage }) {
+function WordList({ rows, setRows, setMessage }) {
   const [newLetter0, setNewLetter0] = useState('');
   const [newLetter1, setNewLetter1] = useState('');
   const [newLetter2, setNewLetter2] = useState('');
@@ -11,6 +12,7 @@ function WordList({ rows, setRows, markDone, setMessage }) {
 
   function addRow(e) {
     let workRows = JSON.parse(JSON.stringify(rows));
+    console.log(newLetter0, newLetter1, newLetter2, newLetter3, newLetter4)
     let workMessage = '';
     // error 1 check - is word a real word
     if (!error1Check(newLetter0 + newLetter1 + newLetter2 + newLetter3 + newLetter4)) {
@@ -30,10 +32,7 @@ function WordList({ rows, setRows, markDone, setMessage }) {
     }
     // if word is valid, add it to the list and space it out in the input fields
     if (workMessage === '') {
-      workRows[workRows.length] = {
-        done: false,
-        name: [newLetter0, newLetter1, newLetter2, newLetter3, newLetter4],
-      };
+      workRows[workRows.length] = {name:[newLetter0, newLetter1, newLetter2, newLetter3, newLetter4]};
       setRows(workRows);
       setNewLetter0('');
       setNewLetter1('');
@@ -45,13 +44,10 @@ function WordList({ rows, setRows, markDone, setMessage }) {
     setMessage(workMessage);
   }
 
-  function deleteWord(e) {
-    let workRows = JSON.parse(JSON.stringify(rows));
-    workRows.pop();
-    // if (workRows.length === 0) {
-    //   workRows = [{ done: false, name: ['', '', '', '', ''] }];
-    // }
-    setRows(workRows);
+  function randomLetter(e) {
+    let pos = letterPoints[Math.floor(Math.random() * 26)].letter
+    setNewLetter0(e.target.value)
+    return pos
   }
 
   function error1Check(name) {
@@ -60,7 +56,7 @@ function WordList({ rows, setRows, markDone, setMessage }) {
       return item === name.toLowerCase();
     });
     if (found === undefined) {
-      return false;
+      return true;                          /* temporary true for testing */
     } else {
       return true;
     }
@@ -92,8 +88,7 @@ function WordList({ rows, setRows, markDone, setMessage }) {
     let count = 0;
     let workRowsTemp = JSON.parse(JSON.stringify(rows));
     workRowsTemp[workRowsTemp.length] = {
-      done: false,
-      name: [newLetter0, newLetter1, newLetter2, newLetter3, newLetter4],
+      name: [newLetter0, newLetter1, newLetter2, newLetter3, newLetter4]
     };
     if (workRowsTemp.length < 2) {
       return resultToReturn;
@@ -118,6 +113,8 @@ function WordList({ rows, setRows, markDone, setMessage }) {
     return resultToReturn;
   }
 
+  // value={randomLetter(newLetter0,newLetter0)}
+
   return (
     <div>
       <div>
@@ -128,8 +125,6 @@ function WordList({ rows, setRows, markDone, setMessage }) {
                 <WordRow
                   index={index}
                   row={row}
-                  markDone={markDone}
-                  deleteWord={deleteWord}
                   rowLength={rows.length}
                 />
               </ul>
@@ -142,35 +137,35 @@ function WordList({ rows, setRows, markDone, setMessage }) {
           <div className="rowForm">
             <input
               required
-              name="letter1"
+              name="letter0"
               type="text"
               value={newLetter0}
-              onChange={e => setNewLetter0(e.target.value)}
+              onChange={randomLetter}
             />
             <input
               required
-              name="letter2"
+              name="letter1"
               type="text"
               value={newLetter1}
               onChange={e => setNewLetter1(e.target.value)}
             />
             <input
               required
-              name="letter3"
+              name="letter2"
               type="text"
               value={newLetter2}
               onChange={e => setNewLetter2(e.target.value)}
             />
             <input
               required
-              name="letter4"
+              name="letter3"
               type="text"
               value={newLetter3}
               onChange={e => setNewLetter3(e.target.value)}
             />
             <input
               required
-              name="letter5"
+              name="letter4"
               type="text"
               value={newLetter4}
               onChange={e => setNewLetter4(e.target.value)}
