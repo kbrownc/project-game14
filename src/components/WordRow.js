@@ -2,7 +2,7 @@ import React from 'react';
 
 function WordRow({ index, row, rowLength }) {
   return (
-    <div>
+    <div className="temp1">
       <li key={index} className='row'>
         <div className="itemText">
           <span className="itemText2">{row.name[0].toUpperCase()}</span>

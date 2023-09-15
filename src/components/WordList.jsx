@@ -133,7 +133,7 @@ function WordList({ rows, setRows, setMessage }) {
         })}
       </div>
       <div>
-      {rows.length < 6 ? (
+      {rows.length < 5 ? (
           <div className="rowForm">
             <input
               required
