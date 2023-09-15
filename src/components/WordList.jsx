@@ -12,7 +12,6 @@ function WordList({ rows, setRows, setMessage }) {
 
   function addRow(e) {
     let workRows = JSON.parse(JSON.stringify(rows));
-    console.log(newLetter0, newLetter1, newLetter2, newLetter3, newLetter4)
     let workMessage = '';
     // error 1 check - is word a real word
     if (!error1Check(newLetter0 + newLetter1 + newLetter2 + newLetter3 + newLetter4)) {
@@ -44,9 +43,9 @@ function WordList({ rows, setRows, setMessage }) {
     setMessage(workMessage);
   }
 
-  function randomLetter(e) {
+  function randomLetter() {
     let pos = letterPoints[Math.floor(Math.random() * 26)].letter
-    setNewLetter0(e.target.value)
+    //setNewLetter0(e.target.value)
     return pos
   }
 
@@ -113,8 +112,6 @@ function WordList({ rows, setRows, setMessage }) {
     return resultToReturn;
   }
 
-  // value={randomLetter(newLetter0,newLetter0)}
-
   return (
     <div>
       <div>
@@ -139,8 +136,8 @@ function WordList({ rows, setRows, setMessage }) {
               required
               name="letter0"
               type="text"
-              value={newLetter0}
-              onChange={randomLetter}
+              value={randomLetter()}
+              onChange={e => setNewLetter0(e.target.value)}
             />
             <input
               required
