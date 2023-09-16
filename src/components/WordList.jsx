@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import WordRow from './WordRow';
 import { wordDictionary } from '../letters/WordDictionary';
 import { letterPoints } from '../letters/LetterPoints';
@@ -9,6 +9,14 @@ function WordList({ rows, setRows, setMessage }) {
   const [newLetter2, setNewLetter2] = useState('');
   const [newLetter3, setNewLetter3] = useState('');
   const [newLetter4, setNewLetter4] = useState('');
+  let pos5 = 0;
+
+  useEffect(() => {
+    const pos = letterPoints[Math.floor(Math.random() * 26)].letter
+    setNewLetter0(pos);
+    //pos5 = Math.floor(Math.random() * 5)
+    console.log('pos5',pos5)
+  }, [rows, pos5]);
 
   function addRow(e) {
     let workRows = JSON.parse(JSON.stringify(rows));
@@ -41,12 +49,6 @@ function WordList({ rows, setRows, setMessage }) {
     }
     // send error or blank message
     setMessage(workMessage);
-  }
-
-  function randomLetter() {
-    let pos = letterPoints[Math.floor(Math.random() * 26)].letter
-    //setNewLetter0(e.target.value)
-    return pos
   }
 
   function error1Check(name) {
@@ -132,13 +134,23 @@ function WordList({ rows, setRows, setMessage }) {
       <div>
       {rows.length < 5 ? (
           <div className="rowForm">
+          { pos5 === 0 
+          ? <input
+              required
+              name="letter0"
+              type="text"
+              value={newLetter0}
+              readOnly={true}
+            /> 
+          :
             <input
               required
               name="letter0"
               type="text"
-              value={randomLetter()}
-              onChange={e => setNewLetter0(e.target.value)}
-            />
+              value={newLetter0}
+              onChange={e => setNewLetter1(e.target.value)}
+            /> 
+          }
             <input
               required
               name="letter1"

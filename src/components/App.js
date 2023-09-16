@@ -9,6 +9,7 @@ function App() {
   const [topScores, setTopScores] = useState([]);
   const [score, setScore] = useState(0);
   const [message, setMessage] = useState('');
+  const [easyHard, setEasyHard] = useState('Easy');
   const LOCAL_STORAGE_KEY1 = 'game14-rows';
   const LOCAL_STORAGE_KEY2 = 'game14-topScores';
 
@@ -63,18 +64,14 @@ function App() {
     setTopScores(workTopScores);
   }
 
-  // Set game as easy or hard
-  function easyHardButton() {
-
-  }
-
   return (
     <div className="app">
       <div className="container">
         <Navbar
           resetButton={resetButton}
           saveButton={saveButton}
-          easyHardButton={easyHardButton}
+          easyHard={easyHard}
+          setEasyHard={setEasyHard}
           message={message}
           score={score}
         />
