@@ -3,20 +3,30 @@ import WordRow from './WordRow';
 import { wordDictionary } from '../letters/WordDictionary';
 import { letterPoints } from '../letters/LetterPoints';
 
-function WordList({ rows, setRows, setMessage }) {
+function WordList({ rows, setRows, setMessage, easyHard }) {
   const [newLetter0, setNewLetter0] = useState('');
   const [newLetter1, setNewLetter1] = useState('');
   const [newLetter2, setNewLetter2] = useState('');
   const [newLetter3, setNewLetter3] = useState('');
   const [newLetter4, setNewLetter4] = useState('');
-  let pos5 = 0;
+  //let pos5 = 0
+  //let pos = ''
+  let pos = letterPoints[Math.floor(Math.random() * 26)].letter
+  let pos5 = Math.floor(Math.random() * 5)
 
   useEffect(() => {
-    const pos = letterPoints[Math.floor(Math.random() * 26)].letter
-    setNewLetter0(pos);
-    //pos5 = Math.floor(Math.random() * 5)
-    console.log('pos5',pos5)
-  }, [rows, pos5]);
+    if (pos5 === 0) {
+      setNewLetter0(pos)
+    } else if (pos5 === 1) {
+      setNewLetter1(pos)
+    } else if (pos5 === 2) {
+      setNewLetter2(pos)
+    } else if (pos5 === 3) {
+      setNewLetter3(pos) 
+    } else {
+      setNewLetter4(pos)
+    }
+  }, [rows]);
 
   function addRow(e) {
     let workRows = JSON.parse(JSON.stringify(rows));
@@ -131,13 +141,14 @@ function WordList({ rows, setRows, setMessage }) {
           );
         })}
       </div>
+      <div>{pos5}</div>
       <div>
       {rows.length < 5 ? (
           <div className="rowForm">
           { pos5 === 0 
           ? <input
               required
-              name="letter0"
+              name="newLetter0"
               type="text"
               value={newLetter0}
               readOnly={true}
@@ -145,40 +156,80 @@ function WordList({ rows, setRows, setMessage }) {
           :
             <input
               required
-              name="letter0"
+              name="newLetter0"
               type="text"
               value={newLetter0}
-              onChange={e => setNewLetter1(e.target.value)}
+              onChange={e => setNewLetter0(e.target.value)}
             /> 
-          }
+          } 
+          { pos5 === 1 
+          ? <input
+              required
+              name="newLetter1"
+              type="text"
+              value={newLetter1}
+              readOnly={true}
+            /> 
+          :
             <input
               required
-              name="letter1"
+              name="newLetter1"
               type="text"
               value={newLetter1}
               onChange={e => setNewLetter1(e.target.value)}
-            />
+            /> 
+          }
+          { pos5 === 2 
+          ? <input
+              required
+              name="newLetter2"
+              type="text"
+              value={newLetter2}
+              readOnly={true}
+            /> 
+          :
             <input
               required
-              name="letter2"
+              name="newLetter2"
               type="text"
               value={newLetter2}
               onChange={e => setNewLetter2(e.target.value)}
-            />
+            /> 
+          }
+          { pos5 === 3 
+          ? <input
+              required
+              name="newLetter3"
+              type="text"
+              value={newLetter3}
+              readOnly={true}
+            /> 
+          :
             <input
               required
-              name="letter3"
+              name="newLetter3"
               type="text"
               value={newLetter3}
               onChange={e => setNewLetter3(e.target.value)}
-            />
+            /> 
+          }
+          { pos5 === 4 
+          ? <input
+              required
+              name="newLetter4"
+              type="text"
+              value={newLetter4}
+              readOnly={true}
+            /> 
+          :
             <input
               required
-              name="letter4"
+              name="newLetter4"
               type="text"
               value={newLetter4}
               onChange={e => setNewLetter4(e.target.value)}
-            />
+            /> 
+          }
             <button type="submit" onClick={addRow}>
               Add
             </button>

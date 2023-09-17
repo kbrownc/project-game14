@@ -5,7 +5,6 @@ import { letterPoints } from '../letters/LetterPoints';
 
 function App() {
   const [rows, setRows] = useState([]);
-  //const [rows, setRows] = useState([{ name: ['b', 'l', 'e', 'n', 'd'] }]);
   const [topScores, setTopScores] = useState([]);
   const [score, setScore] = useState(0);
   const [message, setMessage] = useState('');
@@ -75,7 +74,7 @@ function App() {
           message={message}
           score={score}
         />
-        <WordList rows={rows} setRows={setRows} setMessage={setMessage} />
+        <WordList rows={rows} setRows={setRows} setMessage={setMessage} easyHard={easyHard} />
         <div>
           Top Scores: {topScores[0]} {topScores[1]} {topScores[2]} {topScores[3]} {topScores[4]}
         </div>
