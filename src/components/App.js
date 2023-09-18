@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 import { letterPoints } from '../letters/LetterPoints';
 
 function App() {
+  //console.log('*App')
   const [rows, setRows] = useState([]);
   const [topScores, setTopScores] = useState([]);
   const [score, setScore] = useState(0);
@@ -32,9 +33,7 @@ function App() {
 
   function resetButton() {
     localStorage.removeItem(LOCAL_STORAGE_KEY1);
-    let workRows = [];
-    // workRows[0].name[Math.floor(Math.random() * 5)] = letterPoints[Math.floor(Math.random() * 26)].letter;
-    setRows(workRows);
+    setRows([]);
     setMessage('');
   }
 

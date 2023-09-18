@@ -1,6 +1,7 @@
 import React from 'react';
 
 function WordRow({ index, row, rowLength }) {
+  //console.log('***WordRow')
   return (
     <div>
       <li key={index} >

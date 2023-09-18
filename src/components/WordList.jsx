@@ -4,15 +4,14 @@ import { wordDictionary } from '../letters/WordDictionary';
 import { letterPoints } from '../letters/LetterPoints';
 
 function WordList({ rows, setRows, setMessage, easyHard }) {
+  //console.log('**Wordlist')
   const [newLetter0, setNewLetter0] = useState('');
   const [newLetter1, setNewLetter1] = useState('');
   const [newLetter2, setNewLetter2] = useState('');
   const [newLetter3, setNewLetter3] = useState('');
   const [newLetter4, setNewLetter4] = useState('');
-  //let pos5 = 0
-  //let pos = ''
-  let pos = letterPoints[Math.floor(Math.random() * 26)].letter
-  let pos5 = Math.floor(Math.random() * 5)
+  const [pos, setPos] = useState(letterPoints[Math.floor(Math.random() * 26)].letter)
+  const [pos5, setPos5] = useState(Math.floor(Math.random() * 5))
 
   useEffect(() => {
     if (pos5 === 0) {
@@ -26,7 +25,7 @@ function WordList({ rows, setRows, setMessage, easyHard }) {
     } else {
       setNewLetter4(pos)
     }
-  }, [rows]);
+  }, [rows.length]);
 
   function addRow(e) {
     let workRows = JSON.parse(JSON.stringify(rows));
@@ -56,6 +55,8 @@ function WordList({ rows, setRows, setMessage, easyHard }) {
       setNewLetter2('');
       setNewLetter3('');
       setNewLetter4('');
+      setPos(letterPoints[Math.floor(Math.random() * 26)].letter)
+      setPos5(Math.floor(Math.random() * 5))
     }
     // send error or blank message
     setMessage(workMessage);
@@ -141,7 +142,6 @@ function WordList({ rows, setRows, setMessage, easyHard }) {
           );
         })}
       </div>
-      <div>{pos5}</div>
       <div>
       {rows.length < 5 ? (
           <div className="rowForm">

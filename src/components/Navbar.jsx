@@ -1,6 +1,8 @@
 import React from 'react';
 
 function Navbar({ resetButton, saveButton, easyHard, setEasyHard, message, score }) {
+  //console.log('**NavBar')
+  
   // Set game as easy or hard
   function easyHardButton() {
     if (easyHard === 'Easy') {
