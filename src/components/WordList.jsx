@@ -14,7 +14,6 @@ function WordList({ rows, setRows, setMessage, easyHard }) {
   const [pos5, setPos5] = useState(Math.floor(Math.random() * 5))
 
   useEffect(() => {
-    console.log('useEffect')
     if (pos5 === 0) {
       setNewLetter0(pos)
     } else if (pos5 === 1) {
@@ -45,6 +44,11 @@ function WordList({ rows, setRows, setMessage, easyHard }) {
     if (workMessage === '') {
       if (error3Check(workRows)) {
         workMessage = 'word must reuse 1 and only 1 letter from previous word';
+      }
+    }
+    if (workMessage === '') {
+      if (error4Check()) {
+        workMessage = 'word must have all 5 letters filled';
       }
     }
     // if word is valid, add it to the list and space it out in the input fields
@@ -126,6 +130,21 @@ function WordList({ rows, setRows, setMessage, easyHard }) {
     return resultToReturn;
   }
 
+  function error4Check() {
+    // Check if any of the 5 letter input was left blank
+    let resultToReturn = false;
+    if (newLetter0 === '' || newLetter0 === null ||
+        newLetter1 === '' || newLetter1 === null ||
+        newLetter2 === '' || newLetter2 === null ||
+        newLetter3 === '' || newLetter3 === null ||
+        newLetter4 === '' || newLetter4 === null) {
+      resultToReturn = true
+    } else {
+      resultToReturn = false
+    }
+    return resultToReturn;
+  }
+
   const editInput = (letter,e) => {
     const result = e.target.value.replace(/[^a-z]/gi, '');
     letter(result)
@@ -165,8 +184,7 @@ function WordList({ rows, setRows, setMessage, easyHard }) {
               name="newLetter0"
               type="text"
               value={newLetter0}
-              maxlength="1"
-              pattern="[A-Za-z]{1}"
+              maxLength="1"
               title="Only letter of alphabet"
               onChange={e => editInput(setNewLetter0, e)}
             /> 
@@ -185,6 +203,7 @@ function WordList({ rows, setRows, setMessage, easyHard }) {
               name="newLetter1"
               type="text"
               value={newLetter1}
+              maxLength="1"
               onChange={e => editInput(setNewLetter1, e)}
             /> 
           }
@@ -202,6 +221,7 @@ function WordList({ rows, setRows, setMessage, easyHard }) {
               name="newLetter2"
               type="text"
               value={newLetter2}
+              maxLength="1"
               onChange={e => editInput(setNewLetter2, e)}
             /> 
           }
@@ -219,6 +239,7 @@ function WordList({ rows, setRows, setMessage, easyHard }) {
               name="newLetter3"
               type="text"
               value={newLetter3}
+              maxLength="1"
               onChange={e => editInput(setNewLetter3, e)}
             /> 
           }
@@ -236,6 +257,7 @@ function WordList({ rows, setRows, setMessage, easyHard }) {
               name="newLetter4"
               type="text"
               value={newLetter4}
+              maxLength="1"
               onChange={e => editInput(setNewLetter4, e)}
             /> 
           }
