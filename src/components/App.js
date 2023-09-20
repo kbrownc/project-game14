@@ -25,6 +25,7 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY1, JSON.stringify(rows));
+    setScore(calculateScore())
   }, [rows]);
 
   useEffect(() => {

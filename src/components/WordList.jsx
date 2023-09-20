@@ -14,18 +14,16 @@ function WordList({ rows, setRows, setMessage, easyHard }) {
   const [pos5, setPos5] = useState(Math.floor(Math.random() * 5))
 
   useEffect(() => {
-    if (easyHard === 'Hard' || rows.length === 0) {
-      if (pos5 === 0) {
-        setNewLetter0(pos)
-      } else if (pos5 === 1) {
-        setNewLetter1(pos)
-      } else if (pos5 === 2) {
-        setNewLetter2(pos)
-      } else if (pos5 === 3) {
-        setNewLetter3(pos) 
-      } else {
-        setNewLetter4(pos)
-      }
+    if (pos5 === 0) {
+      setNewLetter0(pos)
+    } else if (pos5 === 1) {
+      setNewLetter1(pos)
+    } else if (pos5 === 2) {
+      setNewLetter2(pos)
+    } else if (pos5 === 3) {
+      setNewLetter3(pos) 
+    } else {
+      setNewLetter4(pos)
     }
   }, [rows.length]);
 
@@ -172,7 +170,7 @@ function WordList({ rows, setRows, setMessage, easyHard }) {
       <div>
       {rows.length < 5 ? (
           <div className="rowForm">
-          { pos5 === 0 
+          { pos5 === 0
           ? <input
               required
               name="newLetter0"
@@ -191,7 +189,7 @@ function WordList({ rows, setRows, setMessage, easyHard }) {
               onChange={e => editInput(setNewLetter0, e)}
             /> 
           } 
-          { pos5 === 1 && easyHard === 'Hard'
+          { pos5 === 1
           ? <input
               required
               name="newLetter1"
@@ -209,7 +207,7 @@ function WordList({ rows, setRows, setMessage, easyHard }) {
               onChange={e => editInput(setNewLetter1, e)}
             /> 
           }
-          { pos5 === 2 && easyHard === 'Hard' 
+          { pos5 === 2
           ? <input
               required
               name="newLetter2"
@@ -227,7 +225,7 @@ function WordList({ rows, setRows, setMessage, easyHard }) {
               onChange={e => editInput(setNewLetter2, e)}
             /> 
           }
-          { pos5 === 3 && easyHard === 'Hard' 
+          { pos5 === 3 
           ? <input
               required
               name="newLetter3"
@@ -245,7 +243,7 @@ function WordList({ rows, setRows, setMessage, easyHard }) {
               onChange={e => editInput(setNewLetter3, e)}
             /> 
           }
-          { pos5 === 4 && easyHard === 'Hard' 
+          { pos5 === 4
           ? <input
               required
               name="newLetter4"
