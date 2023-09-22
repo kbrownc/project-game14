@@ -6,10 +6,20 @@ import { letterPoints } from '../letters/LetterPoints';
 function App() {
   //console.log('*App')
   const [rows, setRows] = useState([]);
+  const newLetterInitialize = {
+    newLetter0: '',
+    newLetter1: '',
+    newLetter2: '',
+    newLetter3: '',
+    newLetter4: ''
+  }
+  const [newLetter, setNewLetter] = useState(newLetterInitialize);
   const [topScores, setTopScores] = useState([]);
   const [score, setScore] = useState(0);
   const [message, setMessage] = useState('');
   const [easyHard, setEasyHard] = useState('Easy');
+  const [pos, setPos] = useState(letterPoints[Math.floor(Math.random() * 26)].letter);
+  const [pos5, setPos5] = useState(Math.floor(Math.random() * 5));
   const LOCAL_STORAGE_KEY1 = 'game14-rows';
   const LOCAL_STORAGE_KEY2 = 'game14-topScores';
 
@@ -25,7 +35,7 @@ function App() {
 
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY1, JSON.stringify(rows));
-    setScore(calculateScore())
+    setScore(calculateScore());
   }, [rows]);
 
   useEffect(() => {
@@ -36,6 +46,20 @@ function App() {
     localStorage.removeItem(LOCAL_STORAGE_KEY1);
     setRows([]);
     setMessage('');
+    setNewLetter(prevLetters => {
+        return {
+          ...prevLetters,
+          newLetter0: '',
+          newLetter1: '',
+          newLetter2: '',
+          newLetter3: '',
+          newLetter4: '',
+        };
+      });
+    if (rows.length === 0) {
+      setPos(letterPoints[Math.floor(Math.random() * 26)].letter);
+      setPos5(Math.floor(Math.random() * 5));
+    }
   }
 
   // Calculate total value of word
@@ -74,7 +98,18 @@ function App() {
           message={message}
           score={score}
         />
-        <WordList rows={rows} setRows={setRows} setMessage={setMessage} easyHard={easyHard} />
+        <WordList
+          rows={rows}
+          pos={pos}
+          setPos={setPos}
+          pos5={pos5}
+          setPos5={setPos5}
+          setRows={setRows}
+          newLetter={newLetter}
+          setNewLetter={setNewLetter}
+          setMessage={setMessage}
+          easyHard={easyHard}
+        />
         <div>
           Top Scores: {topScores[0]} {topScores[1]} {topScores[2]} {topScores[3]} {topScores[4]}
         </div>
