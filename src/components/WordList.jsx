@@ -5,8 +5,6 @@ import { letterPoints } from '../letters/LetterPoints';
 
 function WordList({ rows, pos, setPos, pos5, setPos5, setRows, newLetter, setNewLetter, setMessage, easyHard }) {
   //console.log('**Wordlist')
-  //const [pos, setPos] = useState(letterPoints[Math.floor(Math.random() * 26)].letter);
-  //const [pos5, setPos5] = useState(Math.floor(Math.random() * 5));
 
   useEffect(() => {
     if (pos5 === 0) {

@@ -46,7 +46,39 @@ function App() {
     localStorage.removeItem(LOCAL_STORAGE_KEY1);
     setRows([]);
     setMessage('');
-    setNewLetter(prevLetters => {
+    if (rows.length === 0) {
+      let tempPos = letterPoints[Math.floor(Math.random() * 26)].letter;
+      let tempPos5 =Math.floor(Math.random() * 5);
+      if (tempPos5 === 0) {
+        setNewLetter(prevLetters => {
+          return { ...prevLetters, newLetter0: tempPos, newLetter1: '', newLetter2: '',
+            newLetter3: '', newLetter4: '' };
+        });
+      } else if (tempPos5 === 1) {
+        setNewLetter(prevLetters => {
+          return { ...prevLetters, newLetter0: '', newLetter1: tempPos, newLetter2: '', 
+            newLetter3: '', newLetter4: '' };
+        });
+      } else if (tempPos5 === 2) {
+        setNewLetter(prevLetters => {
+          return { ...prevLetters, newLetter0: '', newLetter1: '', newLetter2: tempPos, 
+            newLetter3: '', newLetter4: '' };
+        });
+      } else if (tempPos5 === 3) {
+        setNewLetter(prevLetters => {
+          return { ...prevLetters, newLetter0: '', newLetter1: '', newLetter2: '', 
+            newLetter3: tempPos, newLetter4: '' };
+        });
+      } else {
+        setNewLetter(prevLetters => {
+          return { ...prevLetters, newLetter0: '', newLetter1: '', newLetter2: '', 
+            newLetter3: '', newLetter4: tempPos };
+        });
+      }
+      setPos(tempPos)
+      setPos5(tempPos5)
+    } else {
+      setNewLetter(prevLetters => {
         return {
           ...prevLetters,
           newLetter0: '',
@@ -56,9 +88,6 @@ function App() {
           newLetter4: '',
         };
       });
-    if (rows.length === 0) {
-      setPos(letterPoints[Math.floor(Math.random() * 26)].letter);
-      setPos5(Math.floor(Math.random() * 5));
     }
   }
 
