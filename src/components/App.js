@@ -36,6 +36,9 @@ function App() {
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY1, JSON.stringify(rows));
     setScore(calculateScore());
+    if (rows.length === 5) {
+        saveScore()
+      }
   }, [rows]);
 
   useEffect(() => {
@@ -91,7 +94,7 @@ function App() {
     }
   }
 
-  // Calculate total value of word
+  // Calculate total value of words
   function calculateScore() {
     let score = 0;
     for (let j = 0; j < rows.length; j++) {
@@ -107,7 +110,7 @@ function App() {
   }
 
   // Sort topScores and take top 5 scores
-  function saveButton() {
+  function saveScore() {
     let workTopScores = JSON.parse(JSON.stringify(topScores));
     setScore(calculateScore());
     workTopScores.push(calculateScore());
@@ -121,7 +124,6 @@ function App() {
       <div className="container">
         <Navbar
           resetButton={resetButton}
-          saveButton={saveButton}
           easyHard={easyHard}
           setEasyHard={setEasyHard}
           message={message}

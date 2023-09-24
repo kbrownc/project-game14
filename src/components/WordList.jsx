@@ -3,7 +3,7 @@ import WordRow from './WordRow';
 import { wordDictionary } from '../letters/WordDictionary';
 import { letterPoints } from '../letters/LetterPoints';
 
-function WordList({ rows, pos, setPos, pos5, setPos5, setRows, newLetter, setNewLetter, setMessage, easyHard }) {
+function WordList({rows,pos,setPos,pos5,setPos5,setRows,newLetter,setNewLetter,setMessage,easyHard}) {
   //console.log('**Wordlist')
 
   useEffect(() => {
@@ -84,6 +84,9 @@ function WordList({ rows, pos, setPos, pos5, setPos5, setRows, newLetter, setNew
           newLetter4: '',
         };
       });
+      if (rows.length === 4) {
+        workMessage = 'End of Game';
+      }
       setPos(letterPoints[Math.floor(Math.random() * 26)].letter);
       setPos5(Math.floor(Math.random() * 5));
     }

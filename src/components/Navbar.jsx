@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Navbar({ resetButton, saveButton, easyHard, setEasyHard, message, score }) {
+function Navbar({ resetButton, easyHard, setEasyHard, message, score }) {
   //console.log('**NavBar')
   
   // Set game as easy or hard
@@ -17,7 +17,6 @@ function Navbar({ resetButton, saveButton, easyHard, setEasyHard, message, score
       <div className="navbar">
         <button onClick={() => resetButton()}>Reset</button>
         <span>5 Letter Word Maze</span>
-        <button onClick={() => saveButton()}>Save Score</button>
         <button onClick={() => easyHardButton()}>
         { easyHard === 'Easy' ? 'Easy' : 'Hard'}</button>
       </div>
