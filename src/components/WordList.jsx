@@ -3,29 +3,29 @@ import WordRow from './WordRow';
 import { wordDictionary } from '../letters/WordDictionary';
 import { letterPoints } from '../letters/LetterPoints';
 
-function WordList({rows,pos,setPos,pos5,setPos5,setRows,newLetter,setNewLetter,setMessage,easyHard}) {
+function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPosition,setRows,newLetter,setNewLetter,setMessage,easyHard}) {
   //console.log('**Wordlist')
 
   useEffect(() => {
-    if (pos5 === 0) {
+    if (randomPosition === 0) {
       setNewLetter(prevLetters => {
-        return { ...prevLetters, newLetter0: pos };
+        return { ...prevLetters, newLetter0: randomLetter };
       });
-    } else if (pos5 === 1) {
+    } else if (randomPosition === 1) {
       setNewLetter(prevLetters => {
-        return { ...prevLetters, newLetter1: pos };
+        return { ...prevLetters, newLetter1: randomLetter };
       });
-    } else if (pos5 === 2) {
+    } else if (randomPosition === 2) {
       setNewLetter(prevLetters => {
-        return { ...prevLetters, newLetter2: pos };
+        return { ...prevLetters, newLetter2: randomLetter };
       });
-    } else if (pos5 === 3) {
+    } else if (randomPosition === 3) {
       setNewLetter(prevLetters => {
-        return { ...prevLetters, newLetter3: pos };
+        return { ...prevLetters, newLetter3: randomLetter };
       });
     } else {
       setNewLetter(prevLetters => {
-        return { ...prevLetters, newLetter4: pos };
+        return { ...prevLetters, newLetter4: randomLetter };
       });
     }
   }, [rows.length]);
@@ -87,8 +87,8 @@ function WordList({rows,pos,setPos,pos5,setPos5,setRows,newLetter,setNewLetter,s
       if (rows.length === 4) {
         workMessage = 'End of Game';
       }
-      setPos(letterPoints[Math.floor(Math.random() * 26)].letter);
-      setPos5(Math.floor(Math.random() * 5));
+      setRandomLetter(letterPoints[Math.floor(Math.random() * 26)].letter);
+      setRandomPosition(Math.floor(Math.random() * 5));
     }
     // send error or blank message
     setMessage(workMessage);
@@ -209,7 +209,7 @@ function WordList({rows,pos,setPos,pos5,setPos5,setRows,newLetter,setNewLetter,s
       <div>
         {rows.length < 5 ? (
           <div className="rowForm">
-            {pos5 === 0 ? (
+            {randomPosition === 0 ? (
               <input 
                 required 
                 name="newLetter0" 
@@ -228,7 +228,7 @@ function WordList({rows,pos,setPos,pos5,setPos5,setRows,newLetter,setNewLetter,s
                 onChange={editInput}
               />
             )}
-            {pos5 === 1 ? (
+            {randomPosition === 1 ? (
               <input required name="newLetter1" type="text" value={newLetter.newLetter1} readOnly={true} />
             ) : (
               <input
@@ -240,7 +240,7 @@ function WordList({rows,pos,setPos,pos5,setPos5,setRows,newLetter,setNewLetter,s
                 onChange={editInput}
               />
             )}
-            {pos5 === 2 ? (
+            {randomPosition === 2 ? (
               <input required name="newLetter2" type="text" value={newLetter.newLetter2} readOnly={true} />
             ) : (
               <input
@@ -252,7 +252,7 @@ function WordList({rows,pos,setPos,pos5,setPos5,setRows,newLetter,setNewLetter,s
                 onChange={editInput}
               />
             )}
-            {pos5 === 3 ? (
+            {randomPosition === 3 ? (
               <input required name="newLetter3" type="text" value={newLetter.newLetter3} readOnly={true} />
             ) : (
               <input
@@ -264,7 +264,7 @@ function WordList({rows,pos,setPos,pos5,setPos5,setRows,newLetter,setNewLetter,s
                 onChange={editInput}
               />
             )}
-            {pos5 === 4 ? (
+            {randomPosition === 4 ? (
               <input required name="newLetter4" type="text" value={newLetter.newLetter4} readOnly={true} />
             ) : (
               <input

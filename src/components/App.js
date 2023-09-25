@@ -18,8 +18,8 @@ function App() {
   const [score, setScore] = useState(0);
   const [message, setMessage] = useState('');
   const [easyHard, setEasyHard] = useState('Easy');
-  const [pos, setPos] = useState(letterPoints[Math.floor(Math.random() * 26)].letter);
-  const [pos5, setPos5] = useState(Math.floor(Math.random() * 5));
+  const [randomLetter, setRandomLetter] = useState(letterPoints[Math.floor(Math.random() * 26)].letter);
+  const [randomPosition, setRandomPosition] = useState(Math.floor(Math.random() * 5));
   const LOCAL_STORAGE_KEY1 = 'game14-rows';
   const LOCAL_STORAGE_KEY2 = 'game14-topScores';
 
@@ -50,36 +50,36 @@ function App() {
     setRows([]);
     setMessage('');
     if (rows.length === 0) {
-      let tempPos = letterPoints[Math.floor(Math.random() * 26)].letter;
-      let tempPos5 =Math.floor(Math.random() * 5);
-      if (tempPos5 === 0) {
+      let tempRandomLetter = letterPoints[Math.floor(Math.random() * 26)].letter;
+      let tempRandomPosition =Math.floor(Math.random() * 5);
+      if (tempRandomPosition === 0) {
         setNewLetter(prevLetters => {
-          return { ...prevLetters, newLetter0: tempPos, newLetter1: '', newLetter2: '',
+          return { ...prevLetters, newLetter0: tempRandomLetter, newLetter1: '', newLetter2: '',
             newLetter3: '', newLetter4: '' };
         });
-      } else if (tempPos5 === 1) {
+      } else if (tempRandomPosition === 1) {
         setNewLetter(prevLetters => {
-          return { ...prevLetters, newLetter0: '', newLetter1: tempPos, newLetter2: '', 
+          return { ...prevLetters, newLetter0: '', newLetter1: tempRandomLetter, newLetter2: '', 
             newLetter3: '', newLetter4: '' };
         });
-      } else if (tempPos5 === 2) {
+      } else if (tempRandomPosition === 2) {
         setNewLetter(prevLetters => {
-          return { ...prevLetters, newLetter0: '', newLetter1: '', newLetter2: tempPos, 
+          return { ...prevLetters, newLetter0: '', newLetter1: '', newLetter2: tempRandomLetter, 
             newLetter3: '', newLetter4: '' };
         });
-      } else if (tempPos5 === 3) {
+      } else if (tempRandomPosition === 3) {
         setNewLetter(prevLetters => {
           return { ...prevLetters, newLetter0: '', newLetter1: '', newLetter2: '', 
-            newLetter3: tempPos, newLetter4: '' };
+            newLetter3: tempRandomLetter, newLetter4: '' };
         });
       } else {
         setNewLetter(prevLetters => {
           return { ...prevLetters, newLetter0: '', newLetter1: '', newLetter2: '', 
-            newLetter3: '', newLetter4: tempPos };
+            newLetter3: '', newLetter4: tempRandomLetter };
         });
       }
-      setPos(tempPos)
-      setPos5(tempPos5)
+      setRandomLetter(tempRandomLetter)
+      setRandomPosition(tempRandomPosition)
     } else {
       setNewLetter(prevLetters => {
         return {
@@ -131,10 +131,10 @@ function App() {
         />
         <WordList
           rows={rows}
-          pos={pos}
-          setPos={setPos}
-          pos5={pos5}
-          setPos5={setPos5}
+          randomLetter={randomLetter}
+          setRandomLetter={setRandomLetter}
+          randomPosition={randomPosition}
+          setRandomPosition={setRandomPosition}
           setRows={setRows}
           newLetter={newLetter}
           setNewLetter={setNewLetter}
