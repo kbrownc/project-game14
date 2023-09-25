@@ -141,7 +141,7 @@ function App() {
           setMessage={setMessage}
           easyHard={easyHard}
         />
-        <div>
+        <div className="topscore">
           Top Scores: {topScores[0]} {topScores[1]} {topScores[2]} {topScores[3]} {topScores[4]}
         </div>
       </div>

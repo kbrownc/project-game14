@@ -16,13 +16,13 @@ function Navbar({ resetButton, easyHard, setEasyHard, message, score }) {
     <div>
       <div className="navbar">
         <button onClick={() => resetButton()}>Reset</button>
-        <span>5 Letter Word Maze</span>
+        <span className="title">5 Letter Word Maze</span>
         <button onClick={() => easyHardButton()}>
         { easyHard === 'Easy' ? 'Easy' : 'Hard'}</button>
       </div>
       <div className="navbar2">
         <span>{message} </span>
-        <span>Score: {score}</span>
+        <span className="navbar3">Score: {score}</span>
       </div>
     </div>
   );

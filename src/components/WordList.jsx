@@ -54,12 +54,12 @@ function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPos
     // error 3 check - words must reuse 1 and only 1 letter from previous row in the same position
     if (workMessage === '') {
       if (error3Check(workRows)) {
-        workMessage = 'word must reuse 1 and only 1 letter from previous word';
+        workMessage = 'Reuse only 1 letter from previous word';
       }
     }
     if (workMessage === '') {
       if (error4Check()) {
-        workMessage = 'word must have all 5 letters filled';
+        workMessage = 'Word must have all 5 letters filled';
       }
     }
     // if word is valid, add it to the list and space it out in the input fields
