@@ -3,7 +3,8 @@ import WordRow from './WordRow';
 import { wordDictionary } from '../letters/WordDictionary';
 import { letterPoints } from '../letters/LetterPoints';
 
-function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPosition,setRows,newLetter,setNewLetter,setMessage,easyHard}) {
+function WordList({rows,randomLetter,setRandomLetter,
+  randomPosition,setRandomPosition,setRows,newLetter,setNewLetter,setMessage,easyHard}) {
   //console.log('**Wordlist')
 
   useEffect(() => {
@@ -87,8 +88,13 @@ function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPos
       if (rows.length === 4) {
         workMessage = 'End of Game';
       }
-      setRandomLetter(letterPoints[Math.floor(Math.random() * 26)].letter);
-      setRandomPosition(Math.floor(Math.random() * 5));
+      // Set randomeLetter to null if not required
+      if (easyHard === 'hard') {
+        setRandomLetter(letterPoints[Math.floor(Math.random() * 26)].letter);
+        setRandomPosition(Math.floor(Math.random() * 5));
+      } else {
+        setRandomLetter('');
+      }
     }
     // send error or blank message
     setMessage(workMessage);
@@ -209,7 +215,8 @@ function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPos
       <div>
         {rows.length < 5 ? (
           <div className="rowForm">
-            {randomPosition === 0 ? (
+            {(randomPosition === 0 && easyHard === 'easy' && rows.length === 0) || (
+              randomPosition === 0 && easyHard === 'hard') ? (
               <input 
                 required 
                 name="newLetter0" 
@@ -228,7 +235,8 @@ function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPos
                 onChange={editInput}
               />
             )}
-            {randomPosition === 1 ? (
+            {(randomPosition === 1 && easyHard === 'easy' && rows.length === 0) || (
+              randomPosition === 1 && easyHard === 'hard') ? (
               <input required name="newLetter1" type="text" value={newLetter.newLetter1} readOnly={true} />
             ) : (
               <input
@@ -240,7 +248,8 @@ function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPos
                 onChange={editInput}
               />
             )}
-            {randomPosition === 2 ? (
+            {(randomPosition === 2 && easyHard === 'easy' && rows.length === 0) || (
+              randomPosition === 2 && easyHard === 'hard') ? (
               <input required name="newLetter2" type="text" value={newLetter.newLetter2} readOnly={true} />
             ) : (
               <input
@@ -252,7 +261,8 @@ function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPos
                 onChange={editInput}
               />
             )}
-            {randomPosition === 3 ? (
+            {(randomPosition === 3 && easyHard === 'easy' && rows.length === 0) || (
+              randomPosition === 3 && easyHard === 'hard') ? (
               <input required name="newLetter3" type="text" value={newLetter.newLetter3} readOnly={true} />
             ) : (
               <input
@@ -264,7 +274,8 @@ function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPos
                 onChange={editInput}
               />
             )}
-            {randomPosition === 4 ? (
+            {(randomPosition === 4 && easyHard === 'easy' && rows.length === 0) || (
+              randomPosition === 4 && easyHard === 'hard') ? (
               <input required name="newLetter4" type="text" value={newLetter.newLetter4} readOnly={true} />
             ) : (
               <input

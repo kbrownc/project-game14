@@ -5,10 +5,10 @@ function Navbar({ resetButton, easyHard, setEasyHard, message, score }) {
   
   // Set game as easy or hard
   function easyHardButton() {
-    if (easyHard === 'Easy') {
-      setEasyHard('Hard')
+    if (easyHard === 'easy') {
+      setEasyHard('hard')
     } else {
-      setEasyHard('Easy')
+      setEasyHard('easy')
     }
   }
 
@@ -18,7 +18,7 @@ function Navbar({ resetButton, easyHard, setEasyHard, message, score }) {
         <button onClick={() => resetButton()}>Reset</button>
         <span className="title">5 Letter Word Maze</span>
         <button onClick={() => easyHardButton()}>
-        { easyHard === 'Easy' ? 'Easy' : 'Hard'}</button>
+        { easyHard === 'easy' ? 'Easy' : 'Hard'}</button>
       </div>
       <div className="navbar2">
         <span>{message} </span>

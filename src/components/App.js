@@ -11,13 +11,13 @@ function App() {
     newLetter1: '',
     newLetter2: '',
     newLetter3: '',
-    newLetter4: ''
-  }
+    newLetter4: '',
+  };
   const [newLetter, setNewLetter] = useState(newLetterInitialize);
   const [topScores, setTopScores] = useState([]);
   const [score, setScore] = useState(0);
   const [message, setMessage] = useState('');
-  const [easyHard, setEasyHard] = useState('Easy');
+  const [easyHard, setEasyHard] = useState('easy');
   const [randomLetter, setRandomLetter] = useState(letterPoints[Math.floor(Math.random() * 26)].letter);
   const [randomPosition, setRandomPosition] = useState(Math.floor(Math.random() * 5));
   const LOCAL_STORAGE_KEY1 = 'game14-rows';
@@ -37,8 +37,8 @@ function App() {
     localStorage.setItem(LOCAL_STORAGE_KEY1, JSON.stringify(rows));
     setScore(calculateScore());
     if (rows.length === 5) {
-        saveScore()
-      }
+      saveScore();
+    }
   }, [rows]);
 
   useEffect(() => {
@@ -49,37 +49,52 @@ function App() {
     localStorage.removeItem(LOCAL_STORAGE_KEY1);
     setRows([]);
     setMessage('');
-    if (rows.length === 0) {
-      let tempRandomLetter = letterPoints[Math.floor(Math.random() * 26)].letter;
-      let tempRandomPosition =Math.floor(Math.random() * 5);
-      if (tempRandomPosition === 0) {
-        setNewLetter(prevLetters => {
-          return { ...prevLetters, newLetter0: tempRandomLetter, newLetter1: '', newLetter2: '',
-            newLetter3: '', newLetter4: '' };
-        });
-      } else if (tempRandomPosition === 1) {
-        setNewLetter(prevLetters => {
-          return { ...prevLetters, newLetter0: '', newLetter1: tempRandomLetter, newLetter2: '', 
-            newLetter3: '', newLetter4: '' };
-        });
-      } else if (tempRandomPosition === 2) {
-        setNewLetter(prevLetters => {
-          return { ...prevLetters, newLetter0: '', newLetter1: '', newLetter2: tempRandomLetter, 
-            newLetter3: '', newLetter4: '' };
-        });
-      } else if (tempRandomPosition === 3) {
-        setNewLetter(prevLetters => {
-          return { ...prevLetters, newLetter0: '', newLetter1: '', newLetter2: '', 
-            newLetter3: tempRandomLetter, newLetter4: '' };
-        });
-      } else {
-        setNewLetter(prevLetters => {
-          return { ...prevLetters, newLetter0: '', newLetter1: '', newLetter2: '', 
-            newLetter3: '', newLetter4: tempRandomLetter };
-        });
-      }
-      setRandomLetter(tempRandomLetter)
-      setRandomPosition(tempRandomPosition)
+    let tempRandomLetter = letterPoints[Math.floor(Math.random() * 26)].letter;
+    let tempRandomPosition = Math.floor(Math.random() * 5);
+    if (tempRandomPosition === 0) {
+      setNewLetter(prevLetters => {
+        return {
+          ...prevLetters,
+          newLetter0: tempRandomLetter,
+          newLetter1: '',
+          newLetter2: '',
+          newLetter3: '',
+          newLetter4: '',
+        };
+      });
+    } else if (tempRandomPosition === 1) {
+      setNewLetter(prevLetters => {
+        return {
+          ...prevLetters,
+          newLetter0: '',
+          newLetter1: tempRandomLetter,
+          newLetter2: '',
+          newLetter3: '',
+          newLetter4: '',
+        };
+      });
+    } else if (tempRandomPosition === 2) {
+      setNewLetter(prevLetters => {
+        return {
+          ...prevLetters,
+          newLetter0: '',
+          newLetter1: '',
+          newLetter2: tempRandomLetter,
+          newLetter3: '',
+          newLetter4: '',
+        };
+      });
+    } else if (tempRandomPosition === 3) {
+      setNewLetter(prevLetters => {
+        return {
+          ...prevLetters,
+          newLetter0: '',
+          newLetter1: '',
+          newLetter2: '',
+          newLetter3: tempRandomLetter,
+          newLetter4: '',
+        };
+      });
     } else {
       setNewLetter(prevLetters => {
         return {
@@ -88,10 +103,12 @@ function App() {
           newLetter1: '',
           newLetter2: '',
           newLetter3: '',
-          newLetter4: '',
+          newLetter4: tempRandomLetter,
         };
       });
     }
+    setRandomLetter(tempRandomLetter);
+    setRandomPosition(tempRandomPosition);
   }
 
   // Calculate total value of words
