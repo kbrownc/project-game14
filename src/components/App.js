@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import WordList from './WordList';
 import Navbar from './Navbar';
 import { letterPoints } from '../letters/LetterPoints';
+import { wordDictionary } from '../letters/WordDictionary';
 
 function App() {
   //console.log('*App')
@@ -18,8 +19,9 @@ function App() {
   const [score, setScore] = useState(0);
   const [message, setMessage] = useState('');
   const [easyHard, setEasyHard] = useState('easy');
-  const [randomLetter, setRandomLetter] = useState(letterPoints[Math.floor(Math.random() * 26)].letter);
-  const [randomPosition, setRandomPosition] = useState(Math.floor(Math.random() * 5));
+  const [tempRandomLetter,tempRandomPosition] = verifyLetter()
+  const [randomLetter, setRandomLetter] = useState(tempRandomLetter);
+  const [randomPosition, setRandomPosition] = useState(tempRandomPosition);
   const LOCAL_STORAGE_KEY1 = 'game14-rows';
   const LOCAL_STORAGE_KEY2 = 'game14-topScores';
 
@@ -49,8 +51,7 @@ function App() {
     localStorage.removeItem(LOCAL_STORAGE_KEY1);
     setRows([]);
     setMessage('');
-    let tempRandomLetter = letterPoints[Math.floor(Math.random() * 26)].letter;
-    let tempRandomPosition = Math.floor(Math.random() * 5);
+    const [tempRandomLetter,tempRandomPosition] = verifyLetter()
     if (tempRandomPosition === 0) {
       setNewLetter(prevLetters => {
         return {
@@ -111,6 +112,23 @@ function App() {
     setRandomPosition(tempRandomPosition);
   }
 
+  // Verify that there are words with the randomLetter
+  function verifyLetter() {
+    let tempRandomLetter = '';
+    let tempRandomPosition = 0;
+    let verify = 0;
+    do {
+      tempRandomLetter = letterPoints[Math.floor(Math.random() * 26)].letter;
+      tempRandomPosition = Math.floor(Math.random() * 5);
+      verify = wordDictionary.filter(item => {
+        return item[tempRandomPosition] === tempRandomLetter.toLowerCase();
+      }).length;
+      console.log(verify,tempRandomLetter,tempRandomPosition)
+    } while (verify < 20);
+    console.log('*****',verify,tempRandomLetter,tempRandomPosition)
+    return [tempRandomLetter,tempRandomPosition]
+  }
+
   // Calculate total value of words
   function calculateScore() {
     let score = 0;
@@ -157,6 +175,7 @@ function App() {
           setNewLetter={setNewLetter}
           setMessage={setMessage}
           easyHard={easyHard}
+          verifyLetter={verifyLetter}
         />
         <div className="topscore">
           Top Scores: {topScores[0]} {topScores[1]} {topScores[2]} {topScores[3]} {topScores[4]}

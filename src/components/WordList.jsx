@@ -3,8 +3,8 @@ import WordRow from './WordRow';
 import { wordDictionary } from '../letters/WordDictionary';
 import { letterPoints } from '../letters/LetterPoints';
 
-function WordList({rows,randomLetter,setRandomLetter,
-  randomPosition,setRandomPosition,setRows,newLetter,setNewLetter,setMessage,easyHard}) {
+function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPosition,
+    setRows,newLetter,setNewLetter,setMessage,easyHard,verifyLetter}) {
   //console.log('**Wordlist')
 
   useEffect(() => {
@@ -90,8 +90,9 @@ function WordList({rows,randomLetter,setRandomLetter,
       }
       // Set randomeLetter to null if not required
       if (easyHard === 'hard') {
-        setRandomLetter(letterPoints[Math.floor(Math.random() * 26)].letter);
-        setRandomPosition(Math.floor(Math.random() * 5));
+        const [tempRandomLetter,tempRandomPosition] = verifyLetter()
+        setRandomLetter(tempRandomLetter);
+        setRandomPosition(tempRandomPosition);
       } else {
         setRandomLetter('');
       }
