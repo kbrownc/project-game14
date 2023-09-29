@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import WordRow from './WordRow';
 import { wordDictionary } from '../letters/WordDictionary';
-import { letterPoints } from '../letters/LetterPoints';
 
 function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPosition,
     setRows,newLetter,setNewLetter,setMessage,easyHard,verifyLetter}) {
@@ -90,9 +89,9 @@ function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPos
       }
       // Set randomeLetter to null if not required
       if (easyHard === 'hard') {
-        const [tempRandomLetter,tempRandomPosition] = verifyLetter()
+        const tempRandomLetter = verifyLetter()
         setRandomLetter(tempRandomLetter);
-        setRandomPosition(tempRandomPosition);
+        //setRandomPosition(tempRandomPosition);
       } else {
         setRandomLetter('');
       }

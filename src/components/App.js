@@ -7,21 +7,14 @@ import { wordDictionary } from '../letters/WordDictionary';
 function App() {
   //console.log('*App')
   const [rows, setRows] = useState([]);
-  const newLetterInitialize = {
-    newLetter0: '',
-    newLetter1: '',
-    newLetter2: '',
-    newLetter3: '',
-    newLetter4: '',
-  };
+  const newLetterInitialize = {newLetter0:'',newLetter1:'',newLetter2:'',newLetter3:'',newLetter4:''};
   const [newLetter, setNewLetter] = useState(newLetterInitialize);
   const [topScores, setTopScores] = useState([]);
   const [score, setScore] = useState(0);
   const [message, setMessage] = useState('');
   const [easyHard, setEasyHard] = useState('easy');
-  const [tempRandomLetter,tempRandomPosition] = verifyLetter()
-  const [randomLetter, setRandomLetter] = useState(tempRandomLetter);
-  const [randomPosition, setRandomPosition] = useState(tempRandomPosition);
+  const [randomPosition, setRandomPosition] = useState(Math.floor(Math.random() * 5));
+  const [randomLetter, setRandomLetter] = useState(verifyLetter);
   const LOCAL_STORAGE_KEY1 = 'game14-rows';
   const LOCAL_STORAGE_KEY2 = 'game14-topScores';
 
@@ -51,7 +44,8 @@ function App() {
     localStorage.removeItem(LOCAL_STORAGE_KEY1);
     setRows([]);
     setMessage('');
-    const [tempRandomLetter,tempRandomPosition] = verifyLetter()
+    const tempRandomPosition = Math.floor(Math.random() * 5);
+    const tempRandomLetter = verifyLetter();
     if (tempRandomPosition === 0) {
       setNewLetter(prevLetters => {
         return {
@@ -115,18 +109,16 @@ function App() {
   // Verify that there are words with the randomLetter
   function verifyLetter() {
     let tempRandomLetter = '';
-    let tempRandomPosition = 0;
     let verify = 0;
     do {
       tempRandomLetter = letterPoints[Math.floor(Math.random() * 26)].letter;
-      tempRandomPosition = Math.floor(Math.random() * 5);
       verify = wordDictionary.filter(item => {
-        return item[tempRandomPosition] === tempRandomLetter.toLowerCase();
+        return item[randomPosition] === tempRandomLetter.toLowerCase();
       }).length;
-      console.log(verify,tempRandomLetter,tempRandomPosition)
+      console.log(verify,tempRandomLetter,randomPosition)
     } while (verify < 20);
-    console.log('*****',verify,tempRandomLetter,tempRandomPosition)
-    return [tempRandomLetter,tempRandomPosition]
+    console.log('*****',verify,tempRandomLetter,randomPosition)
+    return tempRandomLetter
   }
 
   // Calculate total value of words
