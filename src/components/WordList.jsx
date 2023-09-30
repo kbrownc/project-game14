@@ -48,7 +48,7 @@ function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPos
     // error 2 check - has word already been played (duplicate)
     if (workMessage === '') {
       if (error2Check(workRows)) {
-        workMessage = 'duplicate word';
+        workMessage = 'Duplicate word';
       }
     }
     // error 3 check - words must reuse 1 and only 1 letter from previous row in the same position
@@ -87,7 +87,7 @@ function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPos
       if (rows.length === 4) {
         workMessage = 'End of Game';
       }
-      // Set randomeLetter to null if not required
+      // Set randomeLetter to null if not required/Verify if 20 words fit selected letter
       if (easyHard === 'hard') {
         const tempRandomLetter = verifyLetter()
         setRandomLetter(tempRandomLetter);
@@ -115,14 +115,12 @@ function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPos
   function error2Check(workRows) {
     // Check for duplicate word
     let resultToReturn = false;
+    let tempWord = newLetter.newLetter0 + newLetter.newLetter1 + newLetter.newLetter2 +
+          newLetter.newLetter3 + newLetter.newLetter4
     for (let i = 0; i < workRows.length; i++) {
-      for (let j = 0; j < workRows.length; j++) {
-        if (i !== j) {
-          if (workRows[i].name.join('') === workRows[j].name.join('')) {
-            resultToReturn = true;
-            break;
-          }
-        }
+      if (workRows[i].name.join('').toLowerCase() === tempWord.toLowerCase()) {
+        resultToReturn = true;
+        break;
       }
       if (resultToReturn) {
         break;
