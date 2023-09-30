@@ -115,9 +115,7 @@ function App() {
       verify = wordDictionary.filter(item => {
         return item[randomPosition] === tempRandomLetter.toLowerCase();
       }).length;
-      console.log(verify,tempRandomLetter,randomPosition)
     } while (verify < 20);
-    console.log('*****',verify,tempRandomLetter,randomPosition)
     return tempRandomLetter
   }
 
@@ -146,6 +144,19 @@ function App() {
     setTopScores(workTopScores);
   }
 
+  // About (a;ert) button - how to play
+  function alertButton() {
+    let alertMessage = "The App will generate a random letter in a random position on the 1st row " +
+    "and before displaying, will ensure there is at least 20 valid words that fit in that constraint. " +
+    "Player completes their word and selects the ‘ADD’ button. The word is verified to be 1) a valid " +
+    "word 2) not a duplicate 3) has 1 and only 1 duplicate letter with the word above it.\nPlayer " +
+    "continues to enter words…. The app keeping a running total of your score. At the end, the " +
+    "score is saved If it’s one of the top 5 highest scores.\n‘Easy’ or ‘Hard’ difficulty levels " +
+    "are available. ‘Easy’ supplies a random letter only for the 1st word. ‘Hard’ supplies a " +
+    "random letter for every row."
+    alert(alertMessage)
+  }
+
   return (
     <div className="app">
       <div className="container">
@@ -172,6 +183,7 @@ function App() {
         <div className="topscore">
           Top Scores: {topScores[0]} {topScores[1]} {topScores[2]} {topScores[3]} {topScores[4]}
         </div>
+        <button className="alertButton" onClick={() => alertButton()}>About</button>
       </div>
     </div>
   );
