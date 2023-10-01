@@ -7,7 +7,13 @@ import { wordDictionary } from '../letters/WordDictionary';
 function App() {
   //console.log('*App')
   const [rows, setRows] = useState([]);
-  const newLetterInitialize = {newLetter0:'',newLetter1:'',newLetter2:'',newLetter3:'',newLetter4:''};
+  const newLetterInitialize = {
+    newLetter0: '',
+    newLetter1: '',
+    newLetter2: '',
+    newLetter3: '',
+    newLetter4: '',
+  };
   const [newLetter, setNewLetter] = useState(newLetterInitialize);
   const [topScores, setTopScores] = useState([]);
   const [score, setScore] = useState(0);
@@ -34,7 +40,7 @@ function App() {
     if (rows.length === 5) {
       saveScore();
     }
-  }, [rows]);
+  }, [rows]); 
 
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY2, JSON.stringify(topScores));
@@ -107,16 +113,35 @@ function App() {
   }
 
   // Verify that there are words with the randomLetter
+  // function verifyLetter() {
+  //   let tempRandomLetter = '';
+  //   let verify = 0;
+  //   do {
+  //     tempRandomLetter = letterPoints[Math.floor(Math.random() * 26)].letter;
+  //     verify = wordDictionary.filter(item => {
+  //       return item[randomPosition] === tempRandomLetter.toLowerCase();
+  //     }).length;
+  //   } while (verify < 20);
+  //   return tempRandomLetter
+  // }
+
+  function verify(tempRandomLetter) { 
+    let verifyNumber = wordDictionary.filter(item => {
+      return item[randomPosition] === tempRandomLetter.toLowerCase();
+    }).length;
+    return verifyNumber
+  };
+
   function verifyLetter() {
     let tempRandomLetter = '';
-    let verify = 0;
+    let verifyNumber = 0;
     do {
       tempRandomLetter = letterPoints[Math.floor(Math.random() * 26)].letter;
-      verify = wordDictionary.filter(item => {
-        return item[randomPosition] === tempRandomLetter.toLowerCase();
-      }).length;
-    } while (verify < 20);
-    return tempRandomLetter
+      console.log('call to verify ???????????????')
+      verifyNumber = verify(tempRandomLetter)
+      console.log(verifyNumber)
+    } while (verifyNumber < 20);
+    return tempRandomLetter;
   }
 
   // Calculate total value of words
@@ -146,15 +171,16 @@ function App() {
 
   // About (a;ert) button - how to play
   function alertButton() {
-    let alertMessage = "The App will generate a random letter in a random position on the 1st row " +
-    "and before displaying, will ensure there is at least 20 valid words that fit in that constraint. " +
-    "Player completes their word and selects the ‘ADD’ button. The word is verified to be 1) a valid " +
-    "word 2) not a duplicate 3) has 1 and only 1 duplicate letter with the word above it.\nPlayer " +
-    "continues to enter words…. The app keeping a running total of your score. At the end, the " +
-    "score is saved If it’s one of the top 5 highest scores.\n‘Easy’ or ‘Hard’ difficulty levels " +
-    "are available. ‘Easy’ supplies a random letter only for the 1st word. ‘Hard’ supplies a " +
-    "random letter for every row."
-    alert(alertMessage)
+    let alertMessage =
+      'The App will generate a random letter in a random position on the 1st row ' +
+      'and before displaying, will ensure there is at least 20 valid words that fit in that constraint. ' +
+      'Player completes their word and selects the ‘ADD’ button. The word is verified to be 1) a valid ' +
+      'word 2) not a duplicate 3) has 1 and only 1 duplicate letter with the word above it.\nPlayer ' +
+      'continues to enter words…. The app keeping a running total of your score. At the end, the ' +
+      'score is saved If it’s one of the top 5 highest scores.\n‘Easy’ or ‘Hard’ difficulty levels ' +
+      'are available. ‘Easy’ supplies a random letter only for the 1st word. ‘Hard’ supplies a ' +
+      'random letter for every row.';
+    alert(alertMessage);
   }
 
   return (
@@ -183,7 +209,9 @@ function App() {
         <div className="topscore">
           Top Scores: {topScores[0]} {topScores[1]} {topScores[2]} {topScores[3]} {topScores[4]}
         </div>
-        <button className="alertButton" onClick={() => alertButton()}>About</button>
+        <button className="alertButton" onClick={() => alertButton()}>
+          About
+        </button>
       </div>
     </div>
   );

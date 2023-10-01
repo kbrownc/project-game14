@@ -28,7 +28,7 @@ function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPos
         return { ...prevLetters, newLetter4: randomLetter };
       });
     }
-  }, [rows.length]);
+  }, [rows.length,randomLetter,randomPosition,setNewLetter]);
 
   function addRow(e) {
     let workRows = JSON.parse(JSON.stringify(rows));
@@ -46,9 +46,9 @@ function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPos
       workMessage = 'not a valid word';
     }
     // error 2 check - has word already been played (duplicate)
-    if (workMessage === '') {
+    if (workMessage === '') { 
       if (error2Check(workRows)) {
-        workMessage = 'Duplicate word';
+        workMessage = 'Duplicate word'; 
       }
     }
     // error 3 check - words must reuse 1 and only 1 letter from previous row in the same position
@@ -81,7 +81,7 @@ function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPos
           newLetter1: '',
           newLetter2: '',
           newLetter3: '',
-          newLetter4: '',
+          newLetter4: ''
         };
       });
       if (rows.length === 4) {
@@ -89,6 +89,7 @@ function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPos
       }
       // Set randomeLetter to null if not required/Verify if 20 words fit selected letter
       if (easyHard === 'hard') {
+        console.log('verifyLetter')
         const tempRandomLetter = verifyLetter()
         setRandomLetter(tempRandomLetter);
         //setRandomPosition(tempRandomPosition);
