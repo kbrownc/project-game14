@@ -5,7 +5,6 @@ import { letterPoints } from '../letters/LetterPoints';
 import { wordDictionary } from '../letters/WordDictionary';
 
 function App() {
-  //console.log('*App')
   const [rows, setRows] = useState([]);
   const newLetterInitialize = {
     newLetter0: '',
@@ -51,7 +50,7 @@ function App() {
     setRows([]);
     setMessage('');
     const tempRandomPosition = Math.floor(Math.random() * 5);
-    const tempRandomLetter = verifyLetter();
+    const tempRandomLetter = verifyLetter(tempRandomPosition);
     if (tempRandomPosition === 0) {
       setNewLetter(prevLetters => {
         return {
@@ -112,34 +111,20 @@ function App() {
     setRandomPosition(tempRandomPosition);
   }
 
-  // Verify that there are words with the randomLetter
-  // function verifyLetter() {
-  //   let tempRandomLetter = '';
-  //   let verify = 0;
-  //   do {
-  //     tempRandomLetter = letterPoints[Math.floor(Math.random() * 26)].letter;
-  //     verify = wordDictionary.filter(item => {
-  //       return item[randomPosition] === tempRandomLetter.toLowerCase();
-  //     }).length;
-  //   } while (verify < 20);
-  //   return tempRandomLetter
-  // }
-
-  function verify(tempRandomLetter) { 
+  // Verify that there are 20+ words with the randomLetter
+  function verify(tempRandomLetter,tempRandomPosition) { 
     let verifyNumber = wordDictionary.filter(item => {
-      return item[randomPosition] === tempRandomLetter.toLowerCase();
+      return item[tempRandomPosition] === tempRandomLetter.toLowerCase();
     }).length;
     return verifyNumber
   };
 
-  function verifyLetter() {
+  function verifyLetter(tempRandomPosition) {
     let tempRandomLetter = '';
     let verifyNumber = 0;
     do {
       tempRandomLetter = letterPoints[Math.floor(Math.random() * 26)].letter;
-      console.log('call to verify ???????????????')
-      verifyNumber = verify(tempRandomLetter)
-      console.log(verifyNumber)
+      verifyNumber = verify(tempRandomLetter,tempRandomPosition)
     } while (verifyNumber < 20);
     return tempRandomLetter;
   }
@@ -191,7 +176,9 @@ function App() {
           easyHard={easyHard}
           setEasyHard={setEasyHard}
           message={message}
+          setMessage={setMessage}
           score={score}
+          rows={rows}
         />
         <WordList
           rows={rows}

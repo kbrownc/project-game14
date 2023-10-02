@@ -4,7 +4,6 @@ import { wordDictionary } from '../letters/WordDictionary';
 
 function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPosition,
     setRows,newLetter,setNewLetter,setMessage,easyHard,verifyLetter}) {
-  //console.log('**Wordlist')
 
   useEffect(() => {
     if (randomPosition === 0) {
@@ -54,7 +53,7 @@ function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPos
     // error 3 check - words must reuse 1 and only 1 letter from previous row in the same position
     if (workMessage === '') {
       if (error3Check(workRows)) {
-        workMessage = 'Reuse only 1 letter from previous word';
+        workMessage = 'Reuse 1 letter from previous word';
       }
     }
     if (workMessage === '') {
@@ -89,10 +88,10 @@ function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPos
       }
       // Set randomeLetter to null if not required/Verify if 20 words fit selected letter
       if (easyHard === 'hard') {
-        console.log('verifyLetter')
-        const tempRandomLetter = verifyLetter()
+        const tempRandomPosition = Math.floor(Math.random() * 5)
+        const tempRandomLetter = verifyLetter(tempRandomPosition)
         setRandomLetter(tempRandomLetter);
-        //setRandomPosition(tempRandomPosition);
+        setRandomPosition(tempRandomPosition);
       } else {
         setRandomLetter('');
       }

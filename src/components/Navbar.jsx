@@ -1,14 +1,17 @@
 import React from 'react';
 
-function Navbar({ resetButton, easyHard, setEasyHard, message, score }) {
-  //console.log('**NavBar')
+function Navbar({ resetButton, easyHard, setEasyHard, message, setMessage, score, rows }) {
   
   // Set game as easy or hard
   function easyHardButton() {
-    if (easyHard === 'easy') {
-      setEasyHard('hard')
+    if (rows.length > 0) {
+      setMessage('Cannot change difficulty during a game')
     } else {
-      setEasyHard('easy')
+        if (easyHard === 'easy') {
+          setEasyHard('hard')
+        } else {
+          setEasyHard('easy')
+        }
     }
   }
 
@@ -21,7 +24,7 @@ function Navbar({ resetButton, easyHard, setEasyHard, message, score }) {
         { easyHard === 'easy' ? 'Easy' : 'Hard'}</button>
       </div>
       <div className="navbar2">
-        <span>{message} </span>
+        <span>{message}</span>
         <span className="navbar3">Score: {score}</span>
       </div>
     </div>
