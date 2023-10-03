@@ -5,7 +5,7 @@ import { wordDictionary } from '../letters/WordDictionary';
 function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPosition,
     setRows,newLetter,setNewLetter,setMessage,easyHard,verifyLetter}) {
 
-  useEffect(() => {
+  useEffect(() => { 
     if (randomPosition === 0) {
       setNewLetter(prevLetters => {
         return { ...prevLetters, newLetter0: randomLetter };

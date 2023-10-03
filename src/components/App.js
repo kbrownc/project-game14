@@ -5,6 +5,7 @@ import { letterPoints } from '../letters/LetterPoints';
 import { wordDictionary } from '../letters/WordDictionary';
 
 function App() {
+  console.log('app')
   const [rows, setRows] = useState([]);
   const newLetterInitialize = {
     newLetter0: '',
@@ -113,6 +114,7 @@ function App() {
 
   // Verify that there are 20+ words with the randomLetter
   function verify(tempRandomLetter,tempRandomPosition) { 
+    console.log(tempRandomLetter,tempRandomPosition)
     let verifyNumber = wordDictionary.filter(item => {
       return item[tempRandomPosition] === tempRandomLetter.toLowerCase();
     }).length;
@@ -124,7 +126,7 @@ function App() {
     let verifyNumber = 0;
     do {
       tempRandomLetter = letterPoints[Math.floor(Math.random() * 26)].letter;
-      verifyNumber = verify(tempRandomLetter,tempRandomPosition)
+      verifyNumber = verify(tempRandomLetter,randomPosition)   /* is randomPosition correct */
     } while (verifyNumber < 20);
     return tempRandomLetter;
   }

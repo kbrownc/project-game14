@@ -5,7 +5,7 @@ function Navbar({ resetButton, easyHard, setEasyHard, message, setMessage, score
   // Set game as easy or hard
   function easyHardButton() {
     if (rows.length > 0) {
-      setMessage('You cannot change game difficulty during a game')
+      setMessage('No difficulty changes during game')
     } else {
         if (easyHard === 'easy') {
           setEasyHard('hard')
