@@ -33,7 +33,7 @@ function App() {
     if (rows.length === 5) {
       saveScore();
     }
-  }, [rows, saveScore]); 
+  }, [rows]); 
 
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY2, JSON.stringify(topScores));
@@ -111,7 +111,7 @@ function App() {
   }
 
   // Verify that there are 20+ words with the randomLetter
-  function verify(tempRandomLetter,tempRandomPosition) { 
+  function verify(tempRandomLetter,tempRandomPosition) {
     let verifyNumber = wordDictionary.filter(item => {
       return item[tempRandomPosition] === tempRandomLetter.toLowerCase();
     }).length;
