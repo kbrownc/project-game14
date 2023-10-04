@@ -12,10 +12,8 @@ function App() {
   const [score, setScore] = useState(0);
   const [message, setMessage] = useState('');
   const [easyHard, setEasyHard] = useState('easy');
-  const initRandomPosition = Math.floor(Math.random() * 5)
-  const [randomPosition, setRandomPosition] = useState(initRandomPosition);
-  console.log('initial load',initRandomPosition)
-  const [randomLetter, setRandomLetter] = useState(verifyLetter(initRandomPosition));
+  const [randomPosition, setRandomPosition] = useState(calcPosition);
+  const [randomLetter, setRandomLetter] = useState(verifyLetter);
   const LOCAL_STORAGE_KEY1 = 'game14-rows';
   const LOCAL_STORAGE_KEY2 = 'game14-topScores';
 
@@ -35,11 +33,16 @@ function App() {
     if (rows.length === 5) {
       saveScore();
     }
-  }, [rows]); 
+  }, [rows, saveScore]); 
 
   useEffect(() => {
     localStorage.setItem(LOCAL_STORAGE_KEY2, JSON.stringify(topScores));
   }, [topScores]);
+
+  function calcPosition() {
+    let initRandomPosition =  Math.floor(Math.random() * 5)
+    return initRandomPosition
+  };
 
   function resetButton() {
     localStorage.removeItem(LOCAL_STORAGE_KEY1);
@@ -109,7 +112,6 @@ function App() {
 
   // Verify that there are 20+ words with the randomLetter
   function verify(tempRandomLetter,tempRandomPosition) { 
-    console.log(tempRandomLetter,tempRandomPosition)
     let verifyNumber = wordDictionary.filter(item => {
       return item[tempRandomPosition] === tempRandomLetter.toLowerCase();
     }).length;
@@ -121,7 +123,11 @@ function App() {
     let verifyNumber = 0;
     do {
       tempRandomLetter = letterPoints[Math.floor(Math.random() * 26)].letter;
-      verifyNumber = verify(tempRandomLetter,tempRandomPosition)   /* is randomPosition correct */
+      if (typeof tempRandomPosition !== 'undefined') {
+        verifyNumber = verify(tempRandomLetter,tempRandomPosition)
+      } else {
+        verifyNumber = verify(tempRandomLetter,randomPosition)
+      }
     } while (verifyNumber < 20);
     return tempRandomLetter;
   }

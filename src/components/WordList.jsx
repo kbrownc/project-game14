@@ -106,7 +106,7 @@ function WordList({rows,randomLetter,setRandomLetter,randomPosition,setRandomPos
       return item === name.toLowerCase();
     });
     if (found === undefined) {
-      return true; /* temporary true for testing */
+      return false; 
     } else {
       return true;
     }
