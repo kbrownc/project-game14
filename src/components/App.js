@@ -5,22 +5,17 @@ import { letterPoints } from '../letters/LetterPoints';
 import { wordDictionary } from '../letters/WordDictionary';
 
 function App() {
-  console.log('app')
   const [rows, setRows] = useState([]);
-  const newLetterInitialize = {
-    newLetter0: '',
-    newLetter1: '',
-    newLetter2: '',
-    newLetter3: '',
-    newLetter4: '',
-  };
+  const newLetterInitialize = {newLetter0:'',newLetter1:'',newLetter2:'',newLetter3:'',newLetter4:''};
   const [newLetter, setNewLetter] = useState(newLetterInitialize);
   const [topScores, setTopScores] = useState([]);
   const [score, setScore] = useState(0);
   const [message, setMessage] = useState('');
   const [easyHard, setEasyHard] = useState('easy');
-  const [randomPosition, setRandomPosition] = useState(Math.floor(Math.random() * 5));
-  const [randomLetter, setRandomLetter] = useState(verifyLetter);
+  const initRandomPosition = Math.floor(Math.random() * 5)
+  const [randomPosition, setRandomPosition] = useState(initRandomPosition);
+  console.log('initial load',initRandomPosition)
+  const [randomLetter, setRandomLetter] = useState(verifyLetter(initRandomPosition));
   const LOCAL_STORAGE_KEY1 = 'game14-rows';
   const LOCAL_STORAGE_KEY2 = 'game14-topScores';
 
@@ -126,7 +121,7 @@ function App() {
     let verifyNumber = 0;
     do {
       tempRandomLetter = letterPoints[Math.floor(Math.random() * 26)].letter;
-      verifyNumber = verify(tempRandomLetter,randomPosition)   /* is randomPosition correct */
+      verifyNumber = verify(tempRandomLetter,tempRandomPosition)   /* is randomPosition correct */
     } while (verifyNumber < 20);
     return tempRandomLetter;
   }
